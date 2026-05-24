@@ -1,0 +1,78 @@
+import Image from "next/image";
+import { home } from "../assets";
+
+const stats = [
+  { value: "2015", label: "Khởi đầu hành trình" },
+  { value: "100+", label: "Khách hàng doanh nghiệp" },
+  { value: "50+", label: "Đối tác chiến lược" },
+  { value: "20+", label: "Ngành hàng" },
+];
+
+export default function Hero() {
+  return (
+    <section
+      className="relative overflow-hidden text-white pt-32 pb-20 lg:pt-40 lg:pb-28 bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage: `url(${home.hero.background})`,
+        backgroundBlendMode: "screen",
+        backgroundColor: "#0f1f5c",
+      }}
+    >
+      <div
+        className="pointer-events-none absolute hidden md:block overflow-hidden"
+        style={{
+          top: "0",
+          right: "0",
+          bottom: "0",
+          left: "50%",
+        }}
+      >
+        <Image
+          src={home.hero.truck}
+          alt="Smartlog truck"
+          fill
+          priority
+          sizes="(max-width: 1024px) 60vw, 800px"
+          style={{ objectFit: "cover", objectPosition: "15% center" }}
+        />
+      </div>
+
+      <div className="relative mx-auto max-w-7xl px-6">
+        <div className="max-w-[720px]">
+          <h1 className="text-3xl sm:text-4xl lg:text-[40px] xl:text-[44px] leading-[1.2] font-bold tracking-tight drop-shadow-[0_2px_12px_rgba(0,0,0,0.4)]">
+            Kiến tạo hệ sinh thái Logistics<br />
+            hàng đầu Việt Nam
+          </h1>
+          <p className="mt-6 max-w-xl text-base sm:text-lg text-white/90 leading-relaxed drop-shadow-[0_1px_6px_rgba(0,0,0,0.4)]">
+            Smartlog không ngừng đổi mới về công nghệ và giải pháp để doanh
+            nghiệp Việt Nam có thể cạnh tranh ở tầm khu vực, trước nhất là ngay
+            tại &quot;sân nhà&quot; Việt Nam.
+          </p>
+          <div className="mt-8">
+            <a
+              href="#products"
+              className="inline-flex items-center gap-2 rounded-full bg-[#1e3a8a] hover:bg-[#1e40af] transition-colors px-7 py-3.5 text-base font-semibold shadow-lg shadow-[#0a1a3f]/40"
+            >
+              Tìm hiểu thêm
+              <span aria-hidden>→</span>
+            </a>
+          </div>
+
+          <div className="mt-12 grid grid-cols-2 gap-4 max-w-xl">
+            {stats.map((s) => (
+              <div
+                key={s.label}
+                className="rounded-2xl bg-[#0a1a3f]/60 backdrop-blur-md border border-white/15 px-5 py-4"
+              >
+                <div className="text-3xl sm:text-4xl font-bold text-white">
+                  {s.value}
+                </div>
+                <div className="mt-1 text-sm text-white/80">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
