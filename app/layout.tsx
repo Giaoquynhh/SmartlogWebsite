@@ -9,9 +9,16 @@ const beVietnamPro = Be_Vietnam_Pro({
 });
 
 export const metadata: Metadata = {
-  title: "Smartlog - Kiến tạo hệ sinh thái Logistics hàng đầu Việt Nam",
+  title: {
+    default: "Smartlog - Kiến tạo hệ sinh thái Logistics hàng đầu Việt Nam",
+    template: "%s - Smartlog",
+  },
   description:
     "Smartlog cung cấp giải pháp chuyển đổi số Logistics cho doanh nghiệp toàn cầu, thúc đẩy bứt phá vận hành logistics.",
+  icons: {
+    icon: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
