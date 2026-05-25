@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Editable from "../../editor/Editable";
 import { allProducts, type ProductCardData } from "./productsData";
+import Reveal from "../Reveal";
 
 export type OtherSolutionsProps = {
   /** Product code to exclude (the current page's product). e.g. "STM" */
@@ -70,13 +71,13 @@ export default function OtherSolutions({
           )}
         </div>
 
-        <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <Reveal as="div" key={page} stagger className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {visible.map((p) => {
             const pid = `${idPrefix}.cards.${p.code.toLowerCase()}`;
             return (
               <article
                 key={p.code}
-                className="bg-white rounded-3xl p-6 lg:p-7 border border-gray-100 shadow-[0_4px_24px_rgba(15,23,42,0.06)] flex flex-col"
+                className="card-lift bg-white rounded-3xl p-6 lg:p-7 border border-gray-100 shadow-[0_4px_24px_rgba(15,23,42,0.06)] flex flex-col hover:border-[#3543F6]/30"
               >
                 <div className="flex items-start justify-between gap-3">
                   <Editable
@@ -150,7 +151,7 @@ export default function OtherSolutions({
               </article>
             );
           })}
-        </div>
+        </Reveal>
       </div>
     </section>
   );

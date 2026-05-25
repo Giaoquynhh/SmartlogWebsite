@@ -35,7 +35,11 @@ export default function FeatureAccordion({
         return (
           <div
             key={i}
-            className="rounded-3xl border border-[#EDEEF1] bg-white overflow-hidden transition-shadow hover:shadow-[0_4px_24px_rgba(15,23,42,0.06)]"
+            className={`rounded-3xl border bg-white overflow-hidden transition-all duration-300 ${
+              isOpen
+                ? "border-[#3543F6]/30 shadow-[0_8px_32px_rgba(53,67,246,0.12)]"
+                : "border-[#EDEEF1] hover:shadow-[0_4px_24px_rgba(15,23,42,0.06)] hover:border-[#3543F6]/20"
+            }`}
           >
             <button
               onClick={() => setOpen(isOpen ? null : i)}
@@ -54,7 +58,7 @@ export default function FeatureAccordion({
               </span>
             </button>
             {isOpen && (it.body || it.bullets) && (
-              <div className="px-6 pb-6 text-[15px] text-[#615F78] leading-relaxed">
+              <div className="accordion-body px-6 pb-6 text-[15px] text-[#615F78] leading-relaxed">
                 {it.body && (
                   <Editable id={`${aid}.body`} kind="text" as="p">
                     {it.body}

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { home } from "../assets";
 import Editable from "../editor/Editable";
+import Reveal from "./Reveal";
 
 type Product = {
   code: string;
@@ -82,7 +83,7 @@ export default function Products() {
   return (
     <section id="products" className="bg-white py-16 lg:py-20">
       <div className="mx-auto max-w-7xl px-6">
-        <Editable id="home.products.title" kind="text" as="h2" className="text-2xl sm:text-3xl lg:text-[36px] font-bold text-[#0b1320] text-center leading-tight block">
+        <Editable id="home.products.title" kind="text" as="h2" className="anim-fade-up text-2xl sm:text-3xl lg:text-[36px] font-bold text-[#0b1320] text-center leading-tight block">
           Khám phá 5 sản phẩm công nghệ cốt lõi của Smartlog
         </Editable>
 
@@ -109,13 +110,13 @@ export default function Products() {
           </div>
         </div>
 
-        <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <Reveal as="div" stagger className="mt-10 flex flex-wrap justify-center gap-5">
           {products.map((p, idx) => {
             const pid = `home.products.cards.${p.code.toLowerCase()}`;
             return (
               <article
                 key={p.code}
-                className="bg-white rounded-3xl p-6 lg:p-7 border border-gray-100 shadow-[0_4px_24px_rgba(15,23,42,0.06)] flex flex-col"
+                className="card-lift bg-white rounded-3xl p-6 lg:p-7 border border-gray-100 shadow-[0_4px_24px_rgba(15,23,42,0.06)] flex flex-col hover:border-[#1e3a8a]/30 w-full sm:w-[calc(50%-0.625rem)] lg:w-[calc(33.333%-0.833rem)]"
               >
                 <div className="flex items-start justify-between gap-3">
                   <Editable
@@ -184,7 +185,7 @@ export default function Products() {
               </article>
             );
           })}
-        </div>
+        </Reveal>
       </div>
     </section>
   );

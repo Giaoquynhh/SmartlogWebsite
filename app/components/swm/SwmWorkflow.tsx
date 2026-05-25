@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ArrowDownIcon } from "../shared/icons";
 import Editable from "../../editor/Editable";
 import type { AccordionItem } from "../shared/FeatureAccordion";
+import Reveal from "../Reveal";
 
 /**
  * 5 warehouse workflow stages, arranged in a circular flow on the right side
@@ -38,14 +39,18 @@ export default function SwmWorkflow({ items }: SwmWorkflowProps) {
 
         <div className="mt-12 grid lg:grid-cols-2 gap-8 items-start">
           {/* LEFT — 8 accordion items */}
-          <div className="space-y-3">
+          <Reveal as="div" stagger className="space-y-3">
             {items.map((it, i) => {
               const aid = it.id ?? `swm.workflow.items.${i}`;
               const isOpen = open === i;
               return (
                 <div
                   key={i}
-                  className="rounded-2xl border border-[#EDEEF1] bg-white overflow-hidden"
+                  className={`rounded-2xl border bg-white overflow-hidden transition-all duration-300 ${
+                    isOpen
+                      ? "border-[#3543F6]/30 shadow-[0_8px_32px_rgba(53,67,246,0.12)]"
+                      : "border-[#EDEEF1] hover:border-[#3543F6]/20 hover:shadow-[0_4px_16px_rgba(15,23,42,0.06)]"
+                  }`}
                 >
                   <button
                     onClick={() => setOpen(isOpen ? null : i)}
@@ -64,7 +69,7 @@ export default function SwmWorkflow({ items }: SwmWorkflowProps) {
                     </span>
                   </button>
                   {isOpen && (it.body || it.bullets) && (
-                    <div className="px-5 pb-5 text-[14px] text-[#615F78] leading-relaxed">
+                    <div className="accordion-body px-5 pb-5 text-[14px] text-[#615F78] leading-relaxed">
                       {it.body && (
                         <Editable id={`${aid}.body`} kind="text" as="p">
                           {it.body}
@@ -87,12 +92,12 @@ export default function SwmWorkflow({ items }: SwmWorkflowProps) {
                 </div>
               );
             })}
-          </div>
+          </Reveal>
 
           {/* RIGHT — circular flow diagram, sticky on desktop */}
-          <div className="lg:sticky lg:top-24">
+          <Reveal variant="scale" className="lg:sticky lg:top-24">
             <CircularFlowDiagram />
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
@@ -105,7 +110,7 @@ function CircularFlowDiagram() {
       {/* dashed circular guide */}
       <div
         aria-hidden
-        className="absolute inset-10 rounded-full border-2 border-dashed border-[#3543F6]/25"
+        className="absolute inset-10 rounded-full border-2 border-dashed border-[#3543F6]/25 animate-spin-slow"
       />
 
       {/* Top — Chấm hàng */}
@@ -137,7 +142,7 @@ function CircularFlowDiagram() {
       </div>
 
       {/* Bottom-center — small arrow icon */}
-      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-[#3543F6] text-white flex items-center justify-center shadow-lg">
+      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-[#3543F6] text-white flex items-center justify-center shadow-lg pulse-ring">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
           <path d="M3 12h18M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
@@ -149,7 +154,7 @@ function CircularFlowDiagram() {
 function StageBadge({ label, position }: { label: string; position: string }) {
   return (
     <div
-      className={`absolute ${position} bg-[#3543F6] text-white text-sm font-semibold rounded-lg px-4 py-2 shadow-[0_4px_12px_rgba(53,67,246,0.35)] whitespace-nowrap`}
+      className={`absolute ${position} bg-[#3543F6] text-white text-sm font-semibold rounded-lg px-4 py-2 shadow-[0_4px_12px_rgba(53,67,246,0.35)] whitespace-nowrap transition-all duration-300 hover:scale-110 hover:bg-[#2933D9] cursor-default animate-float-slow`}
     >
       {label}
     </div>

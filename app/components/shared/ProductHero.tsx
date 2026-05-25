@@ -47,7 +47,7 @@ export default function ProductHero({
       {/* decorative gradient orbs */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute inset-0 animate-float-slow"
         style={{
           background:
             "radial-gradient(circle at 12% 18%, rgba(53,67,246,0.35) 0%, transparent 45%), radial-gradient(circle at 88% 78%, rgba(156,187,255,0.18) 0%, transparent 50%)",
@@ -57,27 +57,27 @@ export default function ProductHero({
       <div className="relative mx-auto max-w-7xl px-6 grid lg:grid-cols-2 gap-10 items-center">
         <div className="max-w-2xl">
           {badge && (
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 px-4 py-1.5 text-sm font-medium text-[#ECF3FF] mb-5">
+            <span className="anim-fade-up inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 px-4 py-1.5 text-sm font-medium text-[#ECF3FF] mb-5">
               {badge}
             </span>
           )}
-          <h1 className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[49px] leading-[1.2] font-bold tracking-tight text-[#ECF3FF]">
+          <h1 className="anim-fade-up delay-100 text-3xl sm:text-4xl lg:text-[44px] xl:text-[49px] leading-[1.2] font-bold tracking-tight text-[#ECF3FF]">
             {title}
           </h1>
-          <p className="mt-6 text-base sm:text-lg leading-relaxed text-[#ECF3FF]/90">
+          <p className="anim-fade-up delay-200 mt-6 text-base sm:text-lg leading-relaxed text-[#ECF3FF]/90">
             {description}
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="anim-fade-up delay-300 mt-8 flex flex-wrap gap-3">
             <a
               href={primaryCta.href}
-              className="inline-flex items-center gap-2 rounded-xl bg-[#ECF3FF] hover:bg-white transition-colors px-6 py-3 text-base font-bold text-[#161A50] shadow-lg"
+              className="cta-shimmer inline-flex items-center gap-2 rounded-xl bg-[#ECF3FF] hover:bg-white transition-all hover:-translate-y-0.5 px-6 py-3 text-base font-bold text-[#161A50] shadow-lg"
             >
               {primaryCta.label}
               <ArrowRightIcon size={18} />
             </a>
             <a
               href={secondaryCta.href}
-              className="inline-flex items-center gap-2 rounded-xl border border-[#ECF3FF]/60 hover:border-[#ECF3FF] hover:bg-white/10 transition-colors px-6 py-3 text-base font-bold text-[#ECF3FF]"
+              className="inline-flex items-center gap-2 rounded-xl border border-[#ECF3FF]/60 hover:border-[#ECF3FF] hover:bg-white/10 transition-all hover:-translate-y-0.5 px-6 py-3 text-base font-bold text-[#ECF3FF]"
             >
               {secondaryCta.label}
               <ArrowRightIcon size={18} />
@@ -87,9 +87,9 @@ export default function ProductHero({
 
         {/* Illustration side: custom slot > editable image > static image > placeholder */}
         {illustrationSlot ? (
-          <div className="relative">{illustrationSlot}</div>
+          <div className="relative anim-scale-in delay-200">{illustrationSlot}</div>
         ) : editableIllustrationId ? (
-          <div className="relative rounded-3xl overflow-hidden border border-white/10 bg-white/[0.04] backdrop-blur-sm flex items-center justify-center min-h-[320px] lg:min-h-[420px]">
+          <div className="anim-scale-in delay-200 relative rounded-3xl overflow-hidden border border-white/10 bg-white/[0.04] backdrop-blur-sm flex items-center justify-center min-h-[320px] lg:min-h-[420px]">
             <Editable
               id={editableIllustrationId}
               kind="image"
@@ -100,7 +100,7 @@ export default function ProductHero({
             />
           </div>
         ) : (
-          <div className="relative aspect-[5/4] lg:aspect-auto lg:h-[420px] rounded-3xl overflow-hidden border border-white/10 bg-white/[0.04] backdrop-blur-sm flex items-center justify-center">
+          <div className="anim-scale-in delay-200 relative aspect-[5/4] lg:aspect-auto lg:h-[420px] rounded-3xl overflow-hidden border border-white/10 bg-white/[0.04] backdrop-blur-sm flex items-center justify-center">
             {illustration ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { home } from "@/app/assets";
 import Editable from "../editor/Editable";
+import Reveal from "./Reveal";
 
 const productOptions = [
   { code: "STM", label: "Hệ thống quản lý vận tải - STM" },
@@ -34,7 +35,7 @@ export default function ContactForm() {
   return (
     <section id="contact" className="bg-gray-50 py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="grid lg:grid-cols-2 bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden">
+        <Reveal as="div" variant="scale" className="grid lg:grid-cols-2 bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden">
         <div className="p-8 lg:p-12">
         <Editable id="home.contact.title" kind="text" as="h2" className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#0b1320] block">
           Đăng ký tư vấn chuyên sâu từ Smartlog
@@ -150,10 +151,10 @@ export default function ContactForm() {
             src={home.contact.illustration}
             alt="Đăng ký tư vấn chuyên sâu từ Smartlog"
             className="absolute inset-0 w-full h-full"
-            imgClassName="w-full h-full object-cover"
+            imgClassName="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.03]"
           />
         </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

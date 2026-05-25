@@ -1,6 +1,7 @@
 import FAQ from "./FAQ";
 import LeadForm from "./LeadForm";
 import type { FaqItem } from "./FAQ";
+import Reveal from "../Reveal";
 
 export type FaqContactSectionProps = {
   /** id prefix for FAQ (e.g. "som.faq") */
@@ -29,10 +30,10 @@ export default function FaqContactSection({
   return (
     <section id="contact" className="py-16 lg:py-20 bg-white">
       <div className="mx-auto max-w-7xl px-6 grid lg:grid-cols-2 gap-8 lg:gap-10 items-start">
-        <div>
+        <Reveal variant="left">
           <FAQ idPrefix={faqIdPrefix} title={faqTitle} items={faqItems} embedded />
-        </div>
-        <div className="lg:sticky lg:top-24">
+        </Reveal>
+        <Reveal variant="right" className="lg:sticky lg:top-24">
           <LeadForm
             idPrefix={contactIdPrefix}
             title={contactTitle}
@@ -40,7 +41,7 @@ export default function FaqContactSection({
             variant="dark"
             embedded
           />
-        </div>
+        </Reveal>
       </div>
     </section>
   );

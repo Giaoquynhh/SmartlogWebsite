@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ArrowDownIcon } from "../shared/icons";
 import type { AccordionItem } from "../shared/FeatureAccordion";
 import Editable from "../../editor/Editable";
+import Reveal from "../Reveal";
 
 /**
  * STM "Đa tính năng nối liền mọi điểm chạm" section.
@@ -42,14 +43,18 @@ export default function StmFeaturesHighlight({ items }: StmFeaturesHighlightProp
 
         <div className="mt-12 grid lg:grid-cols-2 gap-8 items-start">
           {/* LEFT — accordion */}
-          <div className="space-y-3">
+          <Reveal as="div" stagger className="space-y-3">
             {items.map((it, i) => {
               const aid = it.id ?? `stm.features.items.${i}`;
               const isOpen = open === i;
               return (
                 <div
                   key={i}
-                  className="rounded-2xl border border-[#EDEEF1] bg-white overflow-hidden"
+                  className={`rounded-2xl border bg-white overflow-hidden transition-all duration-300 ${
+                    isOpen
+                      ? "border-[#3543F6]/30 shadow-[0_8px_32px_rgba(53,67,246,0.12)]"
+                      : "border-[#EDEEF1] hover:border-[#3543F6]/20 hover:shadow-[0_4px_16px_rgba(15,23,42,0.06)]"
+                  }`}
                 >
                   <button
                     onClick={() => setOpen(isOpen ? null : i)}
@@ -68,7 +73,7 @@ export default function StmFeaturesHighlight({ items }: StmFeaturesHighlightProp
                     </span>
                   </button>
                   {isOpen && (it.body || it.bullets) && (
-                    <div className="px-5 pb-5 text-[14px] text-[#615F78] leading-relaxed">
+                    <div className="accordion-body px-5 pb-5 text-[14px] text-[#615F78] leading-relaxed">
                       {it.body && (
                         <Editable id={`${aid}.body`} kind="text" as="p">
                           {it.body}
@@ -91,12 +96,12 @@ export default function StmFeaturesHighlight({ items }: StmFeaturesHighlightProp
                 </div>
               );
             })}
-          </div>
+          </Reveal>
 
           {/* RIGHT — Auto Planning panel */}
-          <div className="lg:sticky lg:top-24">
+          <Reveal variant="right" className="lg:sticky lg:top-24">
             <AutoPlanningPanel />
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
@@ -201,6 +206,7 @@ function MapMock() {
         strokeWidth="4"
         strokeDasharray="6 6"
         strokeLinecap="round"
+        style={{ strokeDashoffset: 0, animation: "dash-flow 3s linear infinite" }}
       />
 
       {/* Pin (origin) */}
@@ -211,7 +217,10 @@ function MapMock() {
 
       {/* Warning marker (middle) */}
       <g transform="translate(200,140)">
-        <circle r="18" fill="#FFB020" opacity="0.25" />
+        <circle r="18" fill="#FFB020" opacity="0.25">
+          <animate attributeName="r" values="14;22;14" dur="2s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0.4;0;0.4" dur="2s" repeatCount="indefinite" />
+        </circle>
         <circle r="10" fill="#FFB020" />
         <text textAnchor="middle" y="4" fontSize="12" fontWeight="700" fill="#fff">!</text>
       </g>

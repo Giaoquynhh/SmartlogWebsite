@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { home } from "../assets";
 import Editable from "../editor/Editable";
+import Reveal from "./Reveal";
 
 type Milestone = {
   year: string;
@@ -105,7 +106,7 @@ export default function Achievements() {
         </Editable>
 
         <div className="mt-12 grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-          <div className="space-y-3">
+          <Reveal as="div" stagger className="space-y-3">
             {milestones.map((m) => {
               const isOpen = openYear === m.year;
               return (
@@ -163,7 +164,7 @@ export default function Achievements() {
                 </div>
               );
             })}
-          </div>
+          </Reveal>
 
           <div className="hidden lg:flex justify-center items-center sticky top-24">
             <Editable
@@ -171,7 +172,7 @@ export default function Achievements() {
               kind="image"
               src={home.achievements.star}
               alt="Crystal star"
-              className="w-full max-w-md"
+              className="w-full max-w-md animate-float-slow"
               imgClassName="w-full h-auto drop-shadow-2xl"
             />
           </div>

@@ -62,8 +62,303 @@ html, body {
   background: #3543F6;
 }
 
+/* =========================================================
+   Animation system — keyframes + utilities + reveal-on-scroll
+   ========================================================= */
+
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-12px); }
 }
 .animate-float { animation: float 6s ease-in-out infinite; }
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-8px) translateX(4px); }
+}
+.animate-float-slow { animation: float-slow 9s ease-in-out infinite; }
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-down {
+  from { opacity: 0; transform: translateY(-18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Hero / above-the-fold — autoplay (no IO needed) */
+.anim-fade-up    { animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.anim-fade-in    { animation: fade-in 0.9s ease-out both; }
+.anim-scale-in   { animation: scale-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.anim-slide-left { animation: slide-in-left 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.anim-slide-right{ animation: slide-in-right 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+.delay-700 { animation-delay: 700ms; }
+
+/* =========================================================
+   Reveal-on-scroll (driven by <Reveal> client component)
+   ========================================================= */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+[data-reveal="up"]    { transform: translateY(28px); }
+[data-reveal="down"]  { transform: translateY(-22px); }
+[data-reveal="left"]  { transform: translateX(-32px); }
+[data-reveal="right"] { transform: translateX(32px); }
+[data-reveal="scale"] { transform: scale(0.94); }
+[data-reveal="fade"]  { transform: none; }
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0) translateX(0) scale(1);
+}
+
+/* Stagger children — index supplied via inline CSS var --i (or nth-child fallback). */
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-stagger.is-visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-stagger.is-visible > *:nth-child(1)  { transition-delay: 0ms; }
+.reveal-stagger.is-visible > *:nth-child(2)  { transition-delay: 70ms; }
+.reveal-stagger.is-visible > *:nth-child(3)  { transition-delay: 140ms; }
+.reveal-stagger.is-visible > *:nth-child(4)  { transition-delay: 210ms; }
+.reveal-stagger.is-visible > *:nth-child(5)  { transition-delay: 280ms; }
+.reveal-stagger.is-visible > *:nth-child(6)  { transition-delay: 350ms; }
+.reveal-stagger.is-visible > *:nth-child(7)  { transition-delay: 420ms; }
+.reveal-stagger.is-visible > *:nth-child(8)  { transition-delay: 490ms; }
+.reveal-stagger.is-visible > *:nth-child(9)  { transition-delay: 540ms; }
+.reveal-stagger.is-visible > *:nth-child(10) { transition-delay: 590ms; }
+.reveal-stagger.is-visible > *:nth-child(n+11) { transition-delay: 640ms; }
+
+/* =========================================================
+   Card hover lift — subtle but eye-catching
+   ========================================================= */
+.card-lift {
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease;
+}
+.card-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px -12px rgba(11, 24, 73, 0.18);
+}
+
+/* =========================================================
+   Number / gradient text — subtle moving sheen
+   ========================================================= */
+@keyframes gradient-pan {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+.gradient-pan {
+  background-size: 200% auto;
+  animation: gradient-pan 6s linear infinite;
+}
+
+/* =========================================================
+   Marquee for logo strip
+   ========================================================= */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+.marquee-pause:hover .marquee-track { animation-play-state: paused; }
+
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+.marquee-track-reverse {
+  display: flex;
+  width: max-content;
+  animation: marquee-reverse 28s linear infinite;
+}
+.marquee-track-slow {
+  display: flex;
+  width: max-content;
+  animation: marquee 45s linear infinite;
+}
+.marquee-pause:hover .marquee-track-slow { animation-play-state: paused; }
+
+/* =========================================================
+   Vertical marquee for testimonials
+   ========================================================= */
+@keyframes marquee-up {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-50%); }
+}
+@keyframes marquee-down {
+  from { transform: translateY(-50%); }
+  to   { transform: translateY(0); }
+}
+.marquee-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.marquee-col-up {
+  animation: marquee-up 32s linear infinite;
+}
+.marquee-col-down {
+  animation: marquee-down 32s linear infinite;
+}
+.marquee-pause:hover .marquee-col-up,
+.marquee-pause:hover .marquee-col-down {
+  animation-play-state: paused;
+}
+
+/* =========================================================
+   Shimmer on CTA buttons
+   ========================================================= */
+@keyframes shimmer {
+  0%   { transform: translateX(-100%); }
+  60%  { transform: translateX(220%); }
+  100% { transform: translateX(220%); }
+}
+.cta-shimmer { position: relative; overflow: hidden; isolation: isolate; }
+.cta-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  animation: shimmer 3.6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* =========================================================
+   Pulsing ring (for active hotspot, badges)
+   ========================================================= */
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(53, 67, 246, 0.45); }
+  70%  { box-shadow: 0 0 0 14px rgba(53, 67, 246, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(53, 67, 246, 0); }
+}
+.pulse-ring { animation: pulse-ring 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+/* =========================================================
+   Slow rotation (SWM dashed circle)
+   ========================================================= */
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+.animate-spin-slow { animation: spin-slow 40s linear infinite; }
+
+/* Dashed-line "flowing" effect for SVG routes */
+@keyframes dash-flow {
+  to { stroke-dashoffset: -24; }
+}
+
+/* =========================================================
+   News card animations
+   ========================================================= */
+@keyframes border-shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.news-featured-border {
+  position: relative;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(90deg, #1e3a8a, #60a5fa, #3543F6, #1e3a8a) border-box;
+  background-size: 300% 100%;
+  animation: border-shimmer 4s ease infinite;
+  border: 2px solid transparent;
+}
+
+@keyframes shine-sweep {
+  0% { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(200%) skewX(-15deg); }
+}
+.news-img-shine {
+  position: relative;
+  overflow: hidden;
+}
+.news-img-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+  transform: translateX(-100%) skewX(-15deg);
+  pointer-events: none;
+}
+.group:hover .news-img-shine::after {
+  animation: shine-sweep 0.7s ease-out;
+}
+
+.news-arrow {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+  transform: translateX(-6px);
+}
+.group:hover .news-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* =========================================================
+   Smooth accordion content fade (used inside FeatureAccordion bodies)
+   ========================================================= */
+@keyframes accordion-down {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.accordion-body { animation: accordion-down 0.35s ease-out both; }
+
+/* =========================================================
+   Respect reduced motion
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+  .reveal-stagger > * { opacity: 1 !important; transform: none !important; }
+}

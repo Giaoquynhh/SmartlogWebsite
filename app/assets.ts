@@ -8,6 +8,8 @@ export const shared = {
     white: "/images/shared/logo/smartlog-white.svg",
     mark: "/images/shared/logo/smartlog-mark.svg",
   },
+  heroWatermark: "/images/shared/hero-watermark.svg",
+  newsletterIllustration: "/images/shared/newsletter-illustration.png",
 } as const;
 
 export const stm = {

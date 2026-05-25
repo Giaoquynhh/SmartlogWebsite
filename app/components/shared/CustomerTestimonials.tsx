@@ -1,4 +1,5 @@
 import Editable from "../../editor/Editable";
+import Reveal from "../Reveal";
 
 export type CustomerTestimonialCard = {
   /** stable id (e.g. "som.testimonials.0") */
@@ -44,13 +45,13 @@ export default function CustomerTestimonials({
           {title}
         </Editable>
 
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <Reveal as="div" stagger className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {cards.map((c, i) => {
             const cid = c.id ?? `${idPrefix}.${i}`;
             return (
               <article
                 key={i}
-                className="rounded-3xl bg-white border border-[#EDEEF1] p-6 lg:p-7 shadow-[0_4px_24px_rgba(15,23,42,0.06)] flex flex-col"
+                className="card-lift rounded-3xl bg-white border border-[#EDEEF1] p-6 lg:p-7 shadow-[0_4px_24px_rgba(15,23,42,0.06)] flex flex-col"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-xl bg-[#F7F9FF] border border-[#EDEEF1] flex items-center justify-center overflow-hidden flex-shrink-0">
@@ -94,7 +95,7 @@ export default function CustomerTestimonials({
               </article>
             );
           })}
-        </div>
+        </Reveal>
       </div>
     </section>
   );

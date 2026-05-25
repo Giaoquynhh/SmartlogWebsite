@@ -1,4 +1,5 @@
 import Editable from "../../editor/Editable";
+import Reveal from "../Reveal";
 
 export type Stat = {
   /** stable id (e.g. "stm.stats.0") */
@@ -40,13 +41,13 @@ export default function StatsBand({
         >
           {typeof title === "string" ? title : String(title)}
         </Editable>
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <Reveal as="div" stagger className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
           {stats.map((s, i) => {
             const sid = s.id ?? `${idPrefix}.${i}`;
             return (
               <div
                 key={i}
-                className="rounded-3xl bg-white border border-[#EDEEF1] px-6 py-8 text-center shadow-[0_4px_24px_rgba(15,23,42,0.04)]"
+                className="card-lift rounded-3xl bg-white border border-[#EDEEF1] px-6 py-8 text-center shadow-[0_4px_24px_rgba(15,23,42,0.04)]"
               >
                 {s.label && (
                   <Editable id={`${sid}.label`} kind="text" as="div" className="text-sm font-semibold text-[#615F78] uppercase tracking-wide">
@@ -54,9 +55,9 @@ export default function StatsBand({
                   </Editable>
                 )}
                 <div
-                  className="mt-3 text-4xl sm:text-5xl lg:text-[56px] font-bold leading-none"
+                  className="gradient-pan mt-3 text-4xl sm:text-5xl lg:text-[56px] font-bold leading-none"
                   style={{
-                    background: "linear-gradient(90deg, #9CBBFF 0%, #2933D9 60%)",
+                    backgroundImage: "linear-gradient(90deg, #9CBBFF 0%, #2933D9 40%, #3543F6 60%, #9CBBFF 100%)",
                     WebkitBackgroundClip: "text",
                     backgroundClip: "text",
                     color: "transparent",
@@ -74,12 +75,12 @@ export default function StatsBand({
               </div>
             );
           })}
-        </div>
+        </Reveal>
         {ctaLabel && (
           <div className="mt-10 flex justify-center">
             <a
               href={ctaHref}
-              className="inline-flex items-center gap-2 rounded-xl bg-[#3543F6] hover:bg-[#2933D9] transition-colors px-7 py-3.5 text-base font-bold text-white shadow-lg"
+              className="cta-shimmer inline-flex items-center gap-2 rounded-xl bg-[#3543F6] hover:bg-[#2933D9] transition-all hover:-translate-y-0.5 px-7 py-3.5 text-base font-bold text-white shadow-lg"
             >
               <Editable id={ctaLabelId ?? `${idPrefix}.cta`} kind="text" as="span">
                 {typeof ctaLabel === "string" ? ctaLabel : String(ctaLabel)}

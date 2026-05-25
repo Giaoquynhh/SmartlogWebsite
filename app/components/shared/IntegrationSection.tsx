@@ -1,5 +1,6 @@
 import FeatureAccordion, { AccordionItem } from "./FeatureAccordion";
 import Editable from "../../editor/Editable";
+import Reveal from "../Reveal";
 
 export type IntegrationSectionProps = {
   /** id prefix (e.g. "stm.integration") */
@@ -27,7 +28,7 @@ export default function IntegrationSection({
   return (
     <section className="py-16 lg:py-20 bg-[#F7F9FF]">
       <div className="mx-auto max-w-7xl px-6 grid lg:grid-cols-2 gap-10 items-start">
-        <div className="lg:sticky lg:top-24">
+        <Reveal variant="left" className="lg:sticky lg:top-24">
           <Editable id={`${idPrefix}.title`} kind="text" as="h2" className="text-2xl sm:text-3xl lg:text-[36px] font-bold text-[#333342] leading-tight block">
             {title}
           </Editable>
@@ -42,12 +43,14 @@ export default function IntegrationSection({
               kind="image"
               src={illustration ?? PLACEHOLDER_IMG}
               alt={title}
-              className="w-full max-w-[480px] flex items-center justify-center"
+              className="w-full max-w-[480px] flex items-center justify-center animate-float-slow"
               imgClassName="w-full h-auto object-contain"
             />
           </div>
-        </div>
-        <FeatureAccordion items={items} defaultOpen={0} idPrefix={`${idPrefix}.items`} />
+        </Reveal>
+        <Reveal variant="right">
+          <FeatureAccordion items={items} defaultOpen={0} idPrefix={`${idPrefix}.items`} />
+        </Reveal>
       </div>
     </section>
   );

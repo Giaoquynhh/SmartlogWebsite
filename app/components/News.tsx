@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { home } from "@/app/assets";
 import Editable from "../editor/Editable";
+import Reveal from "./Reveal";
 
 type NewsItem = {
   id: number;
@@ -32,6 +33,56 @@ const news: NewsItem[] = Array.from({ length: 8 }, (_, i) => ({
 
 const itemsPerPage = 8;
 
+function NewsCard({
+  n,
+  isFeatured,
+}: {
+  n: NewsItem;
+  isFeatured?: boolean;
+}) {
+  const nid = `home.news.cards.${n.id}`;
+  return (
+    <article
+      className={`group card-lift rounded-2xl overflow-hidden bg-white cursor-pointer ${
+        isFeatured
+          ? "news-featured-border shadow-[0_8px_30px_rgba(30,58,138,0.15)]"
+          : "border border-gray-100 shadow-sm hover:shadow-lg"
+      }`}
+    >
+      <div className="relative aspect-[4/3] overflow-hidden news-img-shine">
+        <Editable
+          id={`${nid}.image`}
+          kind="image"
+          src={n.image}
+          alt={n.title}
+          className="absolute inset-0 w-full h-full"
+          imgClassName="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+        />
+        <div className="absolute bottom-3 left-3">
+          <span className={`px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wider text-white backdrop-blur-sm ${
+            isFeatured ? "bg-[#1e3a8a]/80" : "bg-black/30"
+          }`}>
+            <Editable id={`${nid}.category`} kind="text" as="span">
+              {n.category}
+            </Editable>
+          </span>
+        </div>
+      </div>
+      <div className="p-4">
+        <Editable id={`${nid}.date`} kind="text" as="div" className="text-xs text-gray-500">
+          {n.date}
+        </Editable>
+        <Editable id={`${nid}.title`} kind="text" as="h3" className="mt-2 font-bold text-[#0b1320] text-[15px] leading-snug line-clamp-2 group-hover:text-[#1e3a8a] transition-colors block">
+          {n.title}
+        </Editable>
+        <Editable id={`${nid}.excerpt`} kind="text" as="p" className="mt-2 text-xs text-gray-600 line-clamp-2 leading-relaxed block">
+          {n.excerpt}
+        </Editable>
+      </div>
+    </article>
+  );
+}
+
 export default function News() {
   const [page, setPage] = useState(0);
   const totalPages = Math.max(1, Math.ceil(news.length / itemsPerPage));
@@ -39,6 +90,8 @@ export default function News() {
     page * itemsPerPage,
     (page + 1) * itemsPerPage,
   );
+  const featured = currentNews.slice(0, 4);
+  const remaining = currentNews.slice(4);
 
   return (
     <section className="bg-white py-16 lg:py-24">
@@ -67,50 +120,25 @@ export default function News() {
           </div>
         </div>
 
-        <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-5">
-          {currentNews.map((n, i) => {
-            const nid = `home.news.cards.${n.id}`;
-            return (
-              <article
-                key={n.id}
-                className={`group rounded-2xl overflow-hidden bg-white border transition-all cursor-pointer ${
-                  i === 0
-                    ? "border-[#1e3a8a]/30 shadow-[0_8px_30px_rgba(30,58,138,0.12)]"
-                    : "border-gray-100 shadow-sm hover:shadow-lg"
-                }`}
-              >
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <Editable
-                    id={`${nid}.image`}
-                    kind="image"
-                    src={n.image}
-                    alt={n.title}
-                    className="absolute inset-0 w-full h-full"
-                    imgClassName="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute bottom-3 left-3">
-                    <span className="px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wider text-white bg-black/30 backdrop-blur-sm">
-                      <Editable id={`${nid}.category`} kind="text" as="span">
-                        {n.category}
-                      </Editable>
-                    </span>
-                  </div>
+        {/* Featured — 4 cards static grid */}
+        <Reveal as="div" stagger className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-5">
+          {featured.map((n, i) => (
+            <NewsCard key={n.id} n={n} isFeatured={i === 0} />
+          ))}
+        </Reveal>
+
+        {/* Remaining — auto-scrolling marquee */}
+        {remaining.length > 0 && (
+          <div key={page} className="marquee-pause overflow-hidden mt-8">
+            <div className="marquee-track-slow gap-5">
+              {[...remaining, ...remaining].map((n, i) => (
+                <div key={`${n.id}-${i}`} className="flex-shrink-0 w-[280px] sm:w-[300px]">
+                  <NewsCard n={n} />
                 </div>
-                <div className="p-4">
-                  <Editable id={`${nid}.date`} kind="text" as="div" className="text-xs text-gray-500">
-                    {n.date}
-                  </Editable>
-                  <Editable id={`${nid}.title`} kind="text" as="h3" className="mt-2 font-bold text-[#0b1320] text-[15px] leading-snug line-clamp-2 group-hover:text-[#1e3a8a] transition-colors block">
-                    {n.title}
-                  </Editable>
-                  <Editable id={`${nid}.excerpt`} kind="text" as="p" className="mt-2 text-xs text-gray-600 line-clamp-2 leading-relaxed block">
-                    {n.excerpt}
-                  </Editable>
-                </div>
-              </article>
-            );
-          })}
-        </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className="mt-8 flex items-center justify-center gap-2">
           {Array.from({ length: totalPages }).map((_, i) => (

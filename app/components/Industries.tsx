@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import {
   Factory,
   Pill,
@@ -122,18 +122,6 @@ export default function Industries() {
   const [activeId, setActiveId] = useState(industries[0].id);
   const active = industries.find((i) => i.id === activeId)!;
   const Icon = active.icon;
-  const brandsRef = useRef<HTMLDivElement>(null);
-
-  const scrollBrands = (direction: "left" | "right") => {
-    const el = brandsRef.current;
-    if (!el) return;
-    const amount = el.clientWidth * 0.7;
-    el.scrollBy({
-      left: direction === "left" ? -amount : amount,
-      behavior: "smooth",
-    });
-  };
-
   return (
     <section className="bg-white py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-6">
@@ -176,7 +164,8 @@ export default function Industries() {
 
         <div className="mt-5 grid lg:grid-cols-[minmax(0,420px)_1fr] gap-6 lg:gap-8 items-stretch">
           <div
-            className={`aspect-[4/3] lg:aspect-auto rounded-3xl relative overflow-hidden shadow-lg ${
+            key={`img-${active.id}`}
+            className={`anim-scale-in group aspect-[4/3] lg:aspect-auto rounded-3xl relative overflow-hidden shadow-lg ${
               active.image ? "" : `bg-gradient-to-br ${active.imageGradient}`
             }`}
           >
@@ -187,7 +176,7 @@ export default function Industries() {
                 src={active.image}
                 alt={active.name}
                 className="absolute inset-0 w-full h-full"
-                imgClassName="w-full h-full object-cover"
+                imgClassName="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
             ) : (
               <Icon className="absolute inset-0 m-auto w-32 h-32 text-white/25" />
@@ -204,10 +193,10 @@ export default function Industries() {
           </div>
 
           <div className="flex flex-col gap-4">
-            <div className="rounded-3xl bg-[#e8efff] p-6 lg:p-8 flex-1">
+            <div key={`bullets-${active.id}`} className="anim-fade-up rounded-3xl bg-[#e8efff] p-6 lg:p-8 flex-1">
               <ul className="space-y-4">
                 {active.bullets.map((b, i) => (
-                  <li key={i} className="flex gap-3">
+                  <li key={i} className="anim-fade-up flex gap-3" style={{ animationDelay: `${i * 90}ms` }}>
                     <div className="flex-shrink-0 mt-1.5 w-3 h-3 rotate-45 bg-[#1e3a8a]" />
                     <Editable id={`home.industries.${active.id}.bullets.${i}`} kind="text" as="p" className="text-sm text-gray-700 leading-relaxed block">
                       {b}
@@ -257,15 +246,12 @@ export default function Industries() {
           </div>
         </div>
 
-        <div className="mt-5 relative">
-          <div
-            ref={brandsRef}
-            className="flex gap-3 overflow-x-auto scroll-smooth snap-x pb-1 pr-12 [&::-webkit-scrollbar]:hidden [scrollbar-width:none]"
-          >
-            {brands.map((brand, index) => (
+        <div className="mt-5 marquee-pause overflow-hidden relative">
+          <div className="marquee-track">
+            {[...brands, ...brands].map((brand, index) => (
               <div
                 key={`${brand.name}-${index}`}
-                className="snap-start flex-shrink-0 w-[calc((100%-3rem)/4)] sm:w-[calc((100%-4.5rem)/5)] lg:w-[calc((100%-4.5rem)/6)] h-16 rounded-2xl bg-white border border-gray-200 flex items-center justify-center px-3 grayscale opacity-75 hover:opacity-100 hover:grayscale-0 transition-all"
+                className="flex-shrink-0 w-[140px] sm:w-[160px] lg:w-[180px] h-16 rounded-2xl bg-white border border-gray-200 flex items-center justify-center px-3 mx-1.5 grayscale opacity-75 hover:opacity-100 hover:grayscale-0 transition-all"
               >
                 {brand.logo ? (
                   <img
@@ -281,21 +267,6 @@ export default function Industries() {
               </div>
             ))}
           </div>
-
-          <button
-            onClick={() => scrollBrands("left")}
-            aria-label="Previous logos"
-            className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-white border border-gray-200 shadow-md text-gray-600 hover:text-[#1e3a8a] hover:border-[#1e3a8a] items-center justify-center transition-colors z-10"
-          >
-            ←
-          </button>
-          <button
-            onClick={() => scrollBrands("right")}
-            aria-label="Next logos"
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-10 h-10 rounded-full bg-white border border-gray-200 shadow-md text-gray-600 hover:text-[#1e3a8a] hover:border-[#1e3a8a] flex items-center justify-center transition-colors z-10"
-          >
-            →
-          </button>
         </div>
 
       </div>

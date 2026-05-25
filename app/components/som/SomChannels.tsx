@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ArrowDownIcon } from "../shared/icons";
 import Editable from "../../editor/Editable";
+import Reveal from "../Reveal";
 
 export type SomFeatureItem = {
   id?: string;
@@ -56,14 +57,18 @@ export default function SomChannels({ items }: SomChannelsProps) {
 
         <div className="mt-12 grid lg:grid-cols-2 gap-8 items-start">
           {/* LEFT — 8-item accordion */}
-          <div className="space-y-3">
+          <Reveal as="div" stagger className="space-y-3">
             {items.map((it, i) => {
               const aid = it.id ?? `som.channels.items.${i}`;
               const isOpen = open === i;
               return (
                 <div
                   key={i}
-                  className="rounded-2xl border border-[#EDEEF1] bg-white overflow-hidden"
+                  className={`rounded-2xl border bg-white overflow-hidden transition-all duration-300 ${
+                    isOpen
+                      ? "border-[#3543F6]/30 shadow-[0_8px_32px_rgba(53,67,246,0.12)]"
+                      : "border-[#EDEEF1] hover:border-[#3543F6]/20 hover:shadow-[0_4px_16px_rgba(15,23,42,0.06)]"
+                  }`}
                 >
                   <button
                     onClick={() => setOpen(isOpen ? null : i)}
@@ -87,7 +92,7 @@ export default function SomChannels({ items }: SomChannelsProps) {
                     </span>
                   </button>
                   {isOpen && (it.body || it.bullets) && (
-                    <div className="px-5 pb-5 text-[14px] text-[#615F78] leading-relaxed">
+                    <div className="accordion-body px-5 pb-5 text-[14px] text-[#615F78] leading-relaxed">
                       {it.body && (
                         <Editable id={`${aid}.body`} kind="text" as="p">
                           {it.body}
@@ -110,11 +115,11 @@ export default function SomChannels({ items }: SomChannelsProps) {
                 </div>
               );
             })}
-          </div>
+          </Reveal>
 
           {/* RIGHT — Dashboard placeholder, sticky on desktop */}
-          <div className="lg:sticky lg:top-24">
-            <div className="rounded-3xl bg-[#C4E0FD]/40 border border-[#C4E0FD] p-4 lg:p-6 flex items-center justify-center">
+          <Reveal variant="right" className="lg:sticky lg:top-24">
+            <div className="rounded-3xl bg-[#C4E0FD]/40 border border-[#C4E0FD] p-4 lg:p-6 flex items-center justify-center animate-float-slow">
               <Editable
                 id="som.channels.dashboard"
                 kind="image"
@@ -124,7 +129,7 @@ export default function SomChannels({ items }: SomChannelsProps) {
                 imgClassName="w-full h-auto rounded-2xl"
               />
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
