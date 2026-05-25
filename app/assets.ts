@@ -23,12 +23,20 @@ export const stm = {
 } as const;
 
 export const som = {
+  hero: {
+    web: "/images/som/hero/hero-web.png",
+    phone: "/images/som/hero/hero-phone.png",
+  },
   integration: {
     illustration: "/images/som/integration/integration-illustration.png",
   },
 } as const;
 
 export const swm = {
+  hero: {
+    web: "/images/swm/hero/hero-web.png",
+    phone: "/images/swm/hero/hero-phone.png",
+  },
   integration: {
     illustration: "/images/swm/integration/integration-illustration.png",
   },

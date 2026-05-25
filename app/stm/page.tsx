@@ -63,11 +63,6 @@ export default async function StmPage() {
         <Header />
 
         <ProductHero
-          badge={
-            <Editable id="stm.hero.badge" kind="text" as="span">
-              STM · SaaS
-            </Editable>
-          }
           title={
             <Editable id="stm.hero.title" kind="text" as="span">
               STM — Giải pháp quản lý vận tải thông minh cho doanh nghiệp logistics, sản xuất, thương mại và phân phối

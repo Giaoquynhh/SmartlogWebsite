@@ -10,6 +10,7 @@ import FaqContactSection from "../components/shared/FaqContactSection";
 import OtherSolutions from "../components/shared/OtherSolutions";
 import CtaBanner from "../components/shared/CtaBanner";
 import SomChannels from "../components/som/SomChannels";
+import SomHeroIllustration from "../components/som/SomHeroIllustration";
 import {
   somFeatures,
   somChannels,
@@ -62,11 +63,6 @@ export default async function SomPage() {
         <Header />
 
         <ProductHero
-          badge={
-            <Editable id="som.hero.badge" kind="text" as="span">
-              SOM · SaaS
-            </Editable>
-          }
           title={
             <Editable id="som.hero.title" kind="text" as="span">
               SOM — Giải pháp quản lý đơn hàng trên một nền tảng duy nhất
@@ -77,7 +73,7 @@ export default async function SomPage() {
               SOM giúp bạn quản lý vòng đời đơn hàng và toàn bộ hoạt động bán hàng đa kênh, qua việc tích hợp linh hoạt các sàn TMĐT và hãng vận chuyển.
             </Editable>
           }
-          editableIllustrationId="som.hero.illustration"
+          illustrationSlot={<SomHeroIllustration />}
         />
 
         <SomChannels items={somFeaturesWithIds} />

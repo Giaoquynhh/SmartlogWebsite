@@ -10,6 +10,7 @@ import FaqContactSection from "../components/shared/FaqContactSection";
 import OtherSolutions from "../components/shared/OtherSolutions";
 import CtaBanner from "../components/shared/CtaBanner";
 import SwmWorkflow from "../components/swm/SwmWorkflow";
+import SwmHeroIllustration from "../components/swm/SwmHeroIllustration";
 import {
   swmFeatures,
   swmIntegration,
@@ -62,11 +63,6 @@ export default async function SwmPage() {
         <Header />
 
         <ProductHero
-          badge={
-            <Editable id="swm.hero.badge" kind="text" as="span">
-              SWM · SaaS
-            </Editable>
-          }
           title={
             <Editable id="swm.hero.title" kind="text" as="span">
               SWM — Giải pháp quản lý kho hàng toàn diện cho doanh nghiệp sản xuất, phân phối, bán lẻ và logistics
@@ -77,7 +73,7 @@ export default async function SwmPage() {
               Là nền tảng vận hành kho hiện đại giúp doanh nghiệp kiểm soát toàn bộ luồng hàng — từ nhập, cất, soạn đến xuất — với độ chính xác 99%, giúp tăng tốc độ xử lý và giảm thiểu sai sót vận hành. Hơn 100+ doanh nghiệp đã thành công TỐI ƯU KHO HÀNG VỚI SWM!
             </Editable>
           }
-          editableIllustrationId="swm.hero.illustration"
+          illustrationSlot={<SwmHeroIllustration />}
         />
 
         <SwmWorkflow items={swmFeaturesWithIds} />

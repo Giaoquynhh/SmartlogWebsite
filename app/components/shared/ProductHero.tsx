@@ -1,5 +1,6 @@
 import { ArrowRightIcon } from "./icons";
 import Editable from "../../editor/Editable";
+import { shared } from "../../assets";
 
 export type ProductHeroProps = {
   badge?: React.ReactNode;
@@ -44,6 +45,19 @@ export default function ProductHero({
       className="relative overflow-hidden text-white pt-32 pb-20 lg:pt-40 lg:pb-28"
       style={{ backgroundColor: "#161A50" }}
     >
+      {/* Shared Smartlog hero watermark (same SVG used on Blog/Projects/Events) */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 overflow-hidden select-none"
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={shared.heroWatermark}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover opacity-90 animate-float-slow"
+        />
+      </div>
+
       {/* decorative gradient orbs */}
       <div
         aria-hidden
