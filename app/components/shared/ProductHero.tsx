@@ -42,7 +42,7 @@ export default function ProductHero({
 }: ProductHeroProps) {
   return (
     <section
-      className="relative overflow-hidden text-white pt-32 pb-20 lg:pt-40 lg:pb-28"
+      className="relative overflow-hidden text-white pt-28 pb-16 lg:pt-36 lg:pb-20 lg:min-h-[720px] flex items-center"
       style={{ backgroundColor: "#161A50" }}
     >
       {/* Shared Smartlog hero watermark (same SVG used on Blog/Projects/Events) */}
@@ -68,7 +68,7 @@ export default function ProductHero({
         }}
       />
 
-      <div className="relative mx-auto max-w-7xl px-6 grid lg:grid-cols-2 gap-10 items-center">
+      <div className="relative w-full mx-auto max-w-7xl px-6 grid lg:grid-cols-2 gap-10 items-center">
         <div className="max-w-2xl">
           {badge && (
             <span className="anim-fade-up inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 px-4 py-1.5 text-sm font-medium text-[#ECF3FF] mb-5">

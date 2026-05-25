@@ -2,12 +2,11 @@ import { swm } from "../../assets";
 import Editable from "../../editor/Editable";
 
 /**
- * SWM hero illustration — Figma exact proportions (Group 19324):
+ * SWM hero illustration — aligned with SOM proportions:
  *  - Container 797 × 421
- *  - Dashboard (image 235): top 0, left 0, 688 × 421  → 86.3% × full height
- *  - Phone (image 236):     top 48, left 578, 219 × 373 → 27.5% wide, overlaps dashboard's right edge
- *  - Phone slides up from the dashboard's bottom-right corner so the two
- *    elements share the same baseline at the bottom.
+ *  - Dashboard: top 0, left 0, 91.97% width
+ *  - Phone: top 11.45%, left 72.52%, width 27.48%
+ *  - Phone overlaps the dashboard's right edge.
  */
 export default function SwmHeroIllustration() {
   return (
@@ -28,7 +27,7 @@ export default function SwmHeroIllustration() {
         kind="image"
         src={swm.hero.web}
         alt="SWM dashboard"
-        className="anim-fade-up delay-200 absolute top-0 left-0 w-[86.3%] rounded-xl overflow-hidden shadow-[0_24px_60px_-12px_rgba(0,0,0,0.55)] ring-1 ring-white/10 animate-float-slow"
+        className="anim-fade-up delay-200 absolute top-0 left-0 w-[91.97%] rounded-xl overflow-hidden shadow-[0_24px_60px_-12px_rgba(0,0,0,0.55)] ring-1 ring-white/10 animate-float-slow"
         imgClassName="w-full h-auto block"
       />
 
