@@ -1,4 +1,8 @@
+import Editable from "../../editor/Editable";
+
 export type WhyCard = {
+  /** stable id used as editable key (e.g. "stm.why.0") */
+  id?: string;
   title: string;
   description: string;
   /** path to image; if omitted, a placeholder is shown */
@@ -6,9 +10,15 @@ export type WhyCard = {
 };
 
 export type WhyDifferentProps = {
-  title?: string;
+  title?: React.ReactNode;
   cards: WhyCard[];
 };
+
+const PLACEHOLDER_IMG =
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="#F2F6FF"/><text x="200" y="160" font-family="sans-serif" font-size="16" fill="#3543F6" text-anchor="middle" opacity="0.5">[Khung ảnh]</text></svg>`
+  );
 
 export default function WhyDifferent({
   title = "Điều gì khiến Smartlog trở nên khác biệt và ưu việt",
@@ -21,42 +31,34 @@ export default function WhyDifferent({
           {title}
         </h2>
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {cards.map((c, i) => (
-            <article
-              key={i}
-              className="rounded-3xl bg-white border border-[#EDEEF1] overflow-hidden shadow-[0_4px_24px_rgba(15,23,42,0.06)] flex flex-col"
-            >
-              <div className="aspect-[4/3] bg-[#F2F6FF] flex items-center justify-center text-[#3543F6]/40 text-sm">
-                {c.image ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={c.image}
+          {cards.map((c, i) => {
+            const baseId = c.id ?? `why.${i}`;
+            return (
+              <article
+                key={i}
+                className="rounded-3xl bg-white border border-[#EDEEF1] overflow-hidden shadow-[0_4px_24px_rgba(15,23,42,0.06)] flex flex-col"
+              >
+                <div className="aspect-[4/3] bg-[#F2F6FF] flex items-center justify-center overflow-hidden">
+                  <Editable
+                    id={`${baseId}.image`}
+                    kind="image"
+                    src={c.image ?? PLACEHOLDER_IMG}
                     alt={c.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full flex items-center justify-center"
+                    imgClassName="w-full h-full object-cover"
                   />
-                ) : (
-                  <div className="text-center px-4">
-                    <div className="mx-auto w-12 h-12 rounded-xl border border-dashed border-[#3543F6]/40 mb-2 flex items-center justify-center">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                        <rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" strokeWidth="1.5" />
-                        <circle cx="9" cy="9" r="1.5" fill="currentColor" />
-                        <path d="M21 15l-5-5L5 21" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                      </svg>
-                    </div>
-                    <span>[Khung ảnh]</span>
-                  </div>
-                )}
-              </div>
-              <div className="p-6 flex-1 flex flex-col">
-                <h3 className="text-lg font-bold text-[#333342] leading-snug">
-                  {c.title}
-                </h3>
-                <p className="mt-3 text-[14px] text-[#615F78] leading-relaxed">
-                  {c.description}
-                </p>
-              </div>
-            </article>
-          ))}
+                </div>
+                <div className="p-6 flex-1 flex flex-col">
+                  <Editable id={`${baseId}.title`} kind="text" as="h3" className="text-lg font-bold text-[#333342] leading-snug">
+                    {c.title}
+                  </Editable>
+                  <Editable id={`${baseId}.description`} kind="text" as="p" className="mt-3 text-[14px] text-[#615F78] leading-relaxed">
+                    {c.description}
+                  </Editable>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

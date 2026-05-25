@@ -2,6 +2,7 @@ import type { AccordionItem } from "../shared/FeatureAccordion";
 import type { WhyCard } from "../shared/WhyDifferent";
 import type { Stat } from "../shared/StatsBand";
 import type { FaqItem } from "../shared/FAQ";
+import type { CustomerTestimonialCard } from "../shared/CustomerTestimonials";
 
 export const swmFeatures: AccordionItem[] = [
   {
@@ -104,5 +105,26 @@ export const swmFaqs: FaqItem[] = [
   {
     q: "SWM có đảm bảo bảo mật dữ liệu không?",
     a: "Mã hoá toàn bộ dữ liệu khi truyền và lưu trữ, sao lưu định kỳ, audit log đầy đủ.",
+  },
+];
+
+export const swmTestimonials: CustomerTestimonialCard[] = [
+  {
+    name: "TTC AgriS",
+    description: "Tập đoàn bia hàng đầu thế giới tại Đông Nam Á",
+    quote:
+      "Với quy mô kho hàng lớn và yêu cầu về chất lượng cao, SWM đã đáp ứng hoàn hảo nhu cầu của chúng tôi. Hệ thống theo dõi nhiệt độ, độ ẩm tự động và cảnh báo kịp thời giúp đảm bảo chất lượng sản phẩm.",
+  },
+  {
+    name: "TTC AgriS",
+    description: "Tập đoàn bia hàng đầu thế giới tại Đông Nam Á",
+    quote:
+      "Với quy mô kho hàng lớn và yêu cầu về chất lượng cao, SWM đã đáp ứng hoàn hảo nhu cầu của chúng tôi. Hệ thống theo dõi nhiệt độ, độ ẩm tự động và cảnh báo kịp thời giúp đảm bảo chất lượng sản phẩm.",
+  },
+  {
+    name: "TTC AgriS",
+    description: "Tập đoàn bia hàng đầu thế giới tại Đông Nam Á",
+    quote:
+      "Với quy mô kho hàng lớn và yêu cầu về chất lượng cao, SWM đã đáp ứng hoàn hảo nhu cầu của chúng tôi. Hệ thống theo dõi nhiệt độ, độ ẩm tự động và cảnh báo kịp thời giúp đảm bảo chất lượng sản phẩm.",
   },
 ];

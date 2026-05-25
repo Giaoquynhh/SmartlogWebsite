@@ -4,9 +4,10 @@ import ProductHero from "../components/shared/ProductHero";
 import IntegrationSection from "../components/shared/IntegrationSection";
 import CustomerLogosGrid from "../components/shared/CustomerLogosGrid";
 import WhyDifferent from "../components/shared/WhyDifferent";
+import CustomerTestimonials from "../components/shared/CustomerTestimonials";
 import StatsBand from "../components/shared/StatsBand";
-import FAQ from "../components/shared/FAQ";
-import LeadForm from "../components/shared/LeadForm";
+import FaqContactSection from "../components/shared/FaqContactSection";
+import OtherSolutions from "../components/shared/OtherSolutions";
 import CtaBanner from "../components/shared/CtaBanner";
 import StmFeaturesHighlight from "../components/stm/StmFeaturesHighlight";
 import StmHeroIllustration from "../components/stm/StmHeroIllustration";
@@ -17,7 +18,10 @@ import {
   stmWhyCards,
   stmStats,
   stmFaqs,
+  stmTestimonials,
 } from "../components/stm/data";
+import EditorShell from "../editor/EditorShell";
+import Editable from "../editor/Editable";
 
 export const metadata = {
   title:
@@ -26,49 +30,128 @@ export const metadata = {
     "STM là giải pháp toàn diện giúp doanh nghiệp nâng cao hiệu quả quản lý vận tải, tối ưu chi phí, thời gian và độ chính xác.",
 };
 
-export default function StmPage() {
+// Attach stable editable ids to data items so titles/bullets are persistable
+const stmFeaturesWithIds = stmFeatures.map((it, i) => ({
+  ...it,
+  id: `stm.features.items.${i}`,
+}));
+const stmIntegrationWithIds = stmIntegration.map((it, i) => ({
+  ...it,
+  id: `stm.integration.items.${i}`,
+}));
+const stmWhyCardsWithIds = stmWhyCards.map((c, i) => ({
+  ...c,
+  id: `stm.why.${i}`,
+}));
+const stmStatsWithIds = stmStats.map((s, i) => ({
+  ...s,
+  id: `stm.stats.${i}`,
+}));
+const stmFaqsWithIds = stmFaqs.map((f, i) => ({
+  ...f,
+  id: `stm.faq.${i}`,
+}));
+const stmTestimonialsWithIds = stmTestimonials.map((t, i) => ({
+  ...t,
+  id: `stm.testimonials.${i}`,
+}));
+
+export default async function StmPage() {
   return (
-    <main className="relative">
-      <Header />
+    <EditorShell pathname="/stm">
+      <main className="relative">
+        <Header />
 
-      <ProductHero
-        badge="STM · SaaS"
-        title={
-          <>
-            STM — Giải pháp quản lý vận tải thông minh
-            <br className="hidden lg:block" /> cho doanh nghiệp logistics, sản xuất, thương mại và phân phối
-          </>
-        }
-        description={
-          <>
-            Hơn cả một hệ thống điều phối xe, STM là giải pháp toàn diện giúp doanh nghiệp nâng cao hiệu quả quản lý vận tải rõ rệt, thông qua tối ưu triệt để chi phí, thời gian và độ chính xác. Hơn <b>100+</b> doanh nghiệp đã thành công TỐI ƯU VẬN TẢI VỚI STM!
-          </>
-        }
-        illustrationSlot={<StmHeroIllustration />}
-      />
+        <ProductHero
+          badge={
+            <Editable id="stm.hero.badge" kind="text" as="span">
+              STM · SaaS
+            </Editable>
+          }
+          title={
+            <Editable id="stm.hero.title" kind="text" as="span">
+              STM — Giải pháp quản lý vận tải thông minh cho doanh nghiệp logistics, sản xuất, thương mại và phân phối
+            </Editable>
+          }
+          description={
+            <Editable id="stm.hero.description" kind="text" as="span">
+              Hơn cả một hệ thống điều phối xe, STM là giải pháp toàn diện giúp doanh nghiệp nâng cao hiệu quả quản lý vận tải rõ rệt, thông qua tối ưu triệt để chi phí, thời gian và độ chính xác. Hơn 100+ doanh nghiệp đã thành công TỐI ƯU VẬN TẢI VỚI STM!
+            </Editable>
+          }
+          primaryCta={{ label: "Hẹn lịch Demo", href: "#contact" }}
+          secondaryCta={{ label: "Xem Brochure", href: "#" }}
+          illustrationSlot={<StmHeroIllustration />}
+        />
 
-      <StmFeaturesHighlight items={stmFeatures} />
+        <StmFeaturesHighlight items={stmFeaturesWithIds} />
 
-      <IntegrationSection
-        title="Thông dụng hơn với khả năng tích hợp linh hoạt"
-        description="STM dễ dàng kết nối với hệ sinh thái phần mềm doanh nghiệp và đa dạng chuẩn dữ liệu."
-        items={stmIntegration}
-        illustration={stmAssets.integration.illustration}
-      />
+        <IntegrationSection
+          idPrefix="stm.integration"
+          title="Thông dụng hơn với khả năng tích hợp linh hoạt"
+          description="STM dễ dàng kết nối với hệ sinh thái phần mềm doanh nghiệp và đa dạng chuẩn dữ liệu."
+          items={stmIntegrationWithIds}
+          illustration={stmAssets.integration.illustration}
+        />
 
-      <CustomerLogosGrid />
+        <CustomerLogosGrid
+          editableIdPrefix="stm.logos"
+          title={
+            <Editable id="stm.logos.title" kind="text" as="span">
+              Những khách hàng đã tin tưởng Smartlog
+            </Editable>
+          }
+          description={
+            <Editable id="stm.logos.description" kind="text" as="span">
+              Đã và đang là nhà cung cấp giải pháp cho hơn 150 doanh nghiệp Logistics, Sản xuất, Thương mại và Phân phối...
+            </Editable>
+          }
+          ctaLabel={
+            <Editable id="stm.logos.cta" kind="text" as="span">
+              Khám phá câu chuyện của khách hàng
+            </Editable>
+          }
+        />
 
-      <WhyDifferent cards={stmWhyCards} />
+        <CustomerTestimonials
+          idPrefix="stm.testimonials"
+          title="Và nhận được nhiều phản hồi tích cực"
+          cards={stmTestimonialsWithIds}
+        />
 
-      <StatsBand stats={stmStats} ctaLabel="Nhận tư vấn 1-1 từ các chuyên gia" />
+        <WhyDifferent
+          title={
+            <Editable id="stm.why.title" kind="text" as="span">
+              Điều gì khiến Smartlog trở nên khác biệt và ưu việt
+            </Editable>
+          }
+          cards={stmWhyCardsWithIds}
+        />
 
-      <CtaBanner label="Khám phá câu chuyện của khách hàng" />
+        <StatsBand
+          idPrefix="stm.stats"
+          title="Những con số biết nói"
+          stats={stmStatsWithIds}
+          ctaLabel="Nhận tư vấn 1-1 từ các chuyên gia"
+        />
 
-      <FAQ items={stmFaqs} />
+        <CtaBanner
+          label={
+            <Editable id="stm.bottomCta" kind="text" as="span">
+              Khám phá câu chuyện của khách hàng
+            </Editable>
+          }
+        />
 
-      <LeadForm />
+        <FaqContactSection
+          faqIdPrefix="stm.faq"
+          faqItems={stmFaqsWithIds}
+          contactIdPrefix="stm.contact"
+        />
 
-      <Footer />
-    </main>
+        <OtherSolutions idPrefix="stm.others" excludeCode="STM" />
+
+        <Footer />
+      </main>
+    </EditorShell>
   );
 }

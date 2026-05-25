@@ -2,6 +2,7 @@ import type { AccordionItem } from "../shared/FeatureAccordion";
 import type { WhyCard } from "../shared/WhyDifferent";
 import type { Stat } from "../shared/StatsBand";
 import type { FaqItem } from "../shared/FAQ";
+import type { CustomerTestimonialCard } from "../shared/CustomerTestimonials";
 
 export const stmFeatures: AccordionItem[] = [
   {
@@ -99,5 +100,26 @@ export const stmFaqs: FaqItem[] = [
   {
     q: "STM có đảm bảo bảo mật dữ liệu không?",
     a: "Hệ thống vận hành trên hạ tầng cloud bảo mật, mã hoá dữ liệu khi truyền tải và lưu trữ, có phân quyền chi tiết theo vai trò.",
+  },
+];
+
+export const stmTestimonials: CustomerTestimonialCard[] = [
+  {
+    name: "TTC AgriS",
+    description: "Tập đoàn bia hàng đầu thế giới tại Đông Nam Á",
+    quote:
+      "STM đã giúp chúng tôi tối ưu chi phí vận tải gần 20% và giảm đáng kể thời gian điều phối. Tài xế tiếp cận hệ thống nhanh, dữ liệu vận hành minh bạch theo thời gian thực.",
+  },
+  {
+    name: "TTC AgriS",
+    description: "Tập đoàn bia hàng đầu thế giới tại Đông Nam Á",
+    quote:
+      "STM đã giúp chúng tôi tối ưu chi phí vận tải gần 20% và giảm đáng kể thời gian điều phối. Tài xế tiếp cận hệ thống nhanh, dữ liệu vận hành minh bạch theo thời gian thực.",
+  },
+  {
+    name: "TTC AgriS",
+    description: "Tập đoàn bia hàng đầu thế giới tại Đông Nam Á",
+    quote:
+      "STM đã giúp chúng tôi tối ưu chi phí vận tải gần 20% và giảm đáng kể thời gian điều phối. Tài xế tiếp cận hệ thống nhanh, dữ liệu vận hành minh bạch theo thời gian thực.",
   },
 ];

@@ -2,6 +2,7 @@ import type { AccordionItem } from "../shared/FeatureAccordion";
 import type { WhyCard } from "../shared/WhyDifferent";
 import type { Stat } from "../shared/StatsBand";
 import type { FaqItem } from "../shared/FAQ";
+import type { CustomerTestimonialCard } from "../shared/CustomerTestimonials";
 
 export const somFeatures: AccordionItem[] = [
   {
@@ -24,19 +25,14 @@ export const somFeatures: AccordionItem[] = [
 
 export const somChannels: AccordionItem[] = [
   {
-    title: "Sàn TMĐT lớn",
-    body: "Lazada, Shopee, Tiki, Sendo, TikTok Shop — đồng bộ đơn, tồn, giá theo thời gian thực.",
+    title: "Tích hợp đa nền tảng",
+    body: "Kết nối liền mạch với các sàn e-commerce hàng đầu (Shopee, Lazada, Tiki, TikTok Shop...). Đồng bộ với hệ thống ERP (SAP, Oracle, Fast...), DMS và phần mềm WMS, TMS.",
   },
   {
-    title: "Social commerce & website",
-    body: "Zalo, Shopify, WooCommerce, website bán hàng riêng — hợp nhất luồng đơn trên một dashboard.",
+    title: "Mô hình điều chuyển và bổ sung hàng thông minh",
   },
   {
-    title: "Hệ thống POS & ERP nội bộ",
-  },
-  {
-    title: "Đối tác vận chuyển",
-    body: "Tích hợp đa dạng các hãng vận chuyển, tự động đẩy đơn và cập nhật trạng thái giao hàng.",
+    title: "Đồng bộ thông tin chính xác và liên tục",
   },
 ];
 
@@ -105,5 +101,26 @@ export const somFaqs: FaqItem[] = [
   {
     q: "SOM có đảm bảo bảo mật dữ liệu khách hàng không?",
     a: "Toàn bộ dữ liệu mã hoá khi truyền & lưu trữ, có phân quyền chi tiết và audit log.",
+  },
+];
+
+export const somTestimonials: CustomerTestimonialCard[] = [
+  {
+    name: "TTC AgriS",
+    description: "Tập đoàn bia hàng đầu thế giới tại Đông Nam Á",
+    quote:
+      "SOM đã giúp IMV số hóa toàn bộ quy trình đặt hàng và phân phối, giúp chúng tôi quản lý 1.000+ đơn hàng mỗi ngày một cách hiệu quả và chính xác hơn so với trước đây.",
+  },
+  {
+    name: "TTC AgriS",
+    description: "Tập đoàn bia hàng đầu thế giới tại Đông Nam Á",
+    quote:
+      "SOM đã giúp IMV số hóa toàn bộ quy trình đặt hàng và phân phối, giúp chúng tôi quản lý 1.000+ đơn hàng mỗi ngày một cách hiệu quả và chính xác hơn so với trước đây.",
+  },
+  {
+    name: "TTC AgriS",
+    description: "Tập đoàn bia hàng đầu thế giới tại Đông Nam Á",
+    quote:
+      "SOM đã giúp IMV số hóa toàn bộ quy trình đặt hàng và phân phối, giúp chúng tôi quản lý 1.000+ đơn hàng mỗi ngày một cách hiệu quả và chính xác hơn so với trước đây.",
   },
 ];

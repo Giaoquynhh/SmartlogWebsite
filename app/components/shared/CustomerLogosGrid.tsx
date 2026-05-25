@@ -1,11 +1,27 @@
+import Editable from "../../editor/Editable";
+
 export type CustomerLogosGridProps = {
-  title?: string;
-  description?: string;
+  title?: React.ReactNode;
+  description?: React.ReactNode;
   /** number of logo placeholder cards to render */
   count?: number;
-  ctaLabel?: string;
+  ctaLabel?: React.ReactNode;
   ctaHref?: string;
+  /**
+   * id prefix used to wrap each logo slot as an Editable image,
+   * so the team can upload real logos. e.g. "stm.logos" → ids "stm.logos.0..23".
+   */
+  editableIdPrefix?: string;
+  /** Optional initial src per slot (when some logos are already provided) */
+  initialSrcs?: (string | undefined)[];
 };
+
+/** Tiny transparent 1x1 PNG used as placeholder src so <Editable kind="image"> can replace it */
+const PLACEHOLDER_SRC =
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 90"><rect width="120" height="90" fill="#F7F9FF"/><text x="60" y="50" font-family="sans-serif" font-size="13" fill="#615F78" text-anchor="middle" opacity="0.5">[Logo]</text></svg>`
+  );
 
 export default function CustomerLogosGrid({
   title = "Những khách hàng đã tin tưởng Smartlog",
@@ -13,6 +29,8 @@ export default function CustomerLogosGrid({
   count = 24,
   ctaLabel = "Khám phá câu chuyện của khách hàng",
   ctaHref = "#",
+  editableIdPrefix,
+  initialSrcs,
 }: CustomerLogosGridProps) {
   return (
     <section className="py-16 lg:py-20 bg-white">
@@ -27,14 +45,34 @@ export default function CustomerLogosGrid({
         </div>
 
         <div className="mt-10 grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-8 gap-4">
-          {Array.from({ length: count }).map((_, i) => (
-            <div
-              key={i}
-              className="aspect-[4/3] rounded-2xl border border-[#EDEEF1] bg-white shadow-[0_2px_12px_rgba(15,23,42,0.04)] flex items-center justify-center text-[#615F78]/40 text-xs"
-            >
-              [Logo]
-            </div>
-          ))}
+          {Array.from({ length: count }).map((_, i) => {
+            const src = initialSrcs?.[i] ?? PLACEHOLDER_SRC;
+            if (editableIdPrefix) {
+              return (
+                <div
+                  key={i}
+                  className="aspect-[4/3] rounded-2xl border border-[#EDEEF1] bg-white shadow-[0_2px_12px_rgba(15,23,42,0.04)] flex items-center justify-center overflow-hidden"
+                >
+                  <Editable
+                    id={`${editableIdPrefix}.${i}`}
+                    kind="image"
+                    src={src}
+                    alt={`Customer logo ${i + 1}`}
+                    className="w-full h-full flex items-center justify-center"
+                    imgClassName="max-w-full max-h-full object-contain"
+                  />
+                </div>
+              );
+            }
+            return (
+              <div
+                key={i}
+                className="aspect-[4/3] rounded-2xl border border-[#EDEEF1] bg-white shadow-[0_2px_12px_rgba(15,23,42,0.04)] flex items-center justify-center text-[#615F78]/40 text-xs"
+              >
+                [Logo]
+              </div>
+            );
+          })}
         </div>
 
         <div className="mt-10 flex justify-center">

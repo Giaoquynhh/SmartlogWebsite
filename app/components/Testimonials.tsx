@@ -1,3 +1,5 @@
+import Editable from "../editor/Editable";
+
 const testimonials = Array.from({ length: 6 }, (_, i) => ({
   id: i,
   name: `Lorem ipsum`,
@@ -37,16 +39,15 @@ export default function Testimonials() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid lg:grid-cols-[minmax(0,380px)_1fr] gap-10 lg:gap-12 items-start">
             <div>
-              <p className="text-base text-white/80">
+              <Editable id="home.testimonials.eyebrow" kind="text" as="p" className="text-base text-white/80 block">
                 Các dự án triển khai nhận được nhiều
-              </p>
-              <h2 className="mt-2 text-3xl sm:text-4xl lg:text-[40px] font-bold leading-tight">
+              </Editable>
+              <Editable id="home.testimonials.title" kind="text" as="h2" className="mt-2 text-3xl sm:text-4xl lg:text-[40px] font-bold leading-tight block">
                 Phản hồi tích cực từ khách hàng
-              </h2>
-              <p className="mt-5 text-sm text-white/75 leading-relaxed max-w-md">
-                Lorem ipsum dolor sit amet consectetur. Tincidunt felis ipsum ut
-                eros sagittis at. Blandit mauris viverra nec egestas.
-              </p>
+              </Editable>
+              <Editable id="home.testimonials.description" kind="text" as="p" className="mt-5 text-sm text-white/75 leading-relaxed max-w-md block">
+                Lorem ipsum dolor sit amet consectetur. Tincidunt felis ipsum ut eros sagittis at. Blandit mauris viverra nec egestas.
+              </Editable>
             </div>
 
             <div className="grid sm:grid-cols-2 gap-4">
@@ -60,13 +61,15 @@ export default function Testimonials() {
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#1e3a8a] to-[#1e3a8a] flex-shrink-0" />
                     <div className="flex-1 min-w-0">
-                      <div className="font-bold text-sm">{t.name}</div>
+                      <Editable id={`home.testimonials.cards.${i}.name`} kind="text" as="div" className="font-bold text-sm">
+                        {t.name}
+                      </Editable>
                       <StarRating count={t.stars} />
                     </div>
                   </div>
-                  <p className="mt-3 text-[13px] text-gray-700 leading-relaxed">
+                  <Editable id={`home.testimonials.cards.${i}.quote`} kind="text" as="p" className="mt-3 text-[13px] text-gray-700 leading-relaxed block">
                     {t.quote}
-                  </p>
+                  </Editable>
                 </article>
               ))}
             </div>

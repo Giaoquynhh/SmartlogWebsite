@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { home } from "../assets";
+import Editable from "../editor/Editable";
 
 const usps = [
   {
@@ -173,12 +174,12 @@ export default function OpenPlatform() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div>
-            <p className="text-sm sm:text-base text-[#1e3a8a] font-semibold">
+            <Editable id="home.openPlatform.eyebrow" kind="text" as="p" className="text-sm sm:text-base text-[#1e3a8a] font-semibold block">
               Không dừng lại ở những giải pháp thông thường
-            </p>
-            <h2 className="mt-3 text-2xl sm:text-3xl lg:text-[40px] font-bold text-[#0b1320] leading-tight">
+            </Editable>
+            <Editable id="home.openPlatform.title" kind="text" as="h2" className="mt-3 text-2xl sm:text-3xl lg:text-[40px] font-bold text-[#0b1320] leading-tight block">
               Smartlog là Nền tảng mở cho Logistics tương lai
-            </h2>
+            </Editable>
 
             <div className="mt-10 space-y-8">
               {usps.map((u, i) => (
@@ -195,12 +196,12 @@ export default function OpenPlatform() {
                     {i + 1}
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-[#1e3a8a]">
+                    <Editable id={`home.openPlatform.usps.${i}.title`} kind="text" as="h3" className="text-lg font-bold text-[#1e3a8a] block">
                       {u.title}
-                    </h3>
-                    <p className="mt-1.5 text-sm text-gray-700 leading-relaxed">
+                    </Editable>
+                    <Editable id={`home.openPlatform.usps.${i}.desc`} kind="text" as="p" className="mt-1.5 text-sm text-gray-700 leading-relaxed block">
                       {u.desc}
-                    </p>
+                    </Editable>
                   </div>
                 </div>
               ))}

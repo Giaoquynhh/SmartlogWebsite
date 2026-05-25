@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { home } from "@/app/assets";
+import Editable from "../editor/Editable";
 
 const productOptions = [
   { code: "STM", label: "Hệ thống quản lý vận tải - STM" },
@@ -35,9 +36,9 @@ export default function ContactForm() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid lg:grid-cols-2 bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden">
         <div className="p-8 lg:p-12">
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#0b1320]">
+        <Editable id="home.contact.title" kind="text" as="h2" className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#0b1320] block">
           Đăng ký tư vấn chuyên sâu từ Smartlog
-        </h2>
+        </Editable>
         <p className="mt-3 text-sm text-gray-500">
           Dấu (<span className="text-[#1e3a8a]">*</span>) là bắt buộc
         </p>
@@ -134,17 +135,22 @@ export default function ContactForm() {
               type="submit"
               className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-[#1e3a8a] hover:bg-[#1e40af] transition-colors px-8 py-3.5 text-white font-semibold"
             >
-              Đăng ký nhận bản tin
+              <Editable id="home.contact.submit" kind="text" as="span">
+                Đăng ký nhận bản tin
+              </Editable>
             </button>
           </div>
         </form>
         </div>
 
         <div className="hidden lg:block relative">
-          <img
+          <Editable
+            id="home.contact.illustration"
+            kind="image"
             src={home.contact.illustration}
             alt="Đăng ký tư vấn chuyên sâu từ Smartlog"
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full"
+            imgClassName="w-full h-full object-cover"
           />
         </div>
         </div>

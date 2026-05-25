@@ -1,7 +1,7 @@
 import { ArrowRightIcon } from "./icons";
 
 export type CtaBannerProps = {
-  label: string;
+  label: React.ReactNode;
   href?: string;
 };
 

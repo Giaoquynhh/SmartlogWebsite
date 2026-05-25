@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# editor mode runtime state (created by editor when team makes drafts)
+/.editor-state/
+/public/uploads/

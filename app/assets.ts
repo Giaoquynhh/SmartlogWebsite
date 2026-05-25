@@ -20,6 +20,18 @@ export const stm = {
   },
 } as const;
 
+export const som = {
+  integration: {
+    illustration: "/images/som/integration/integration-illustration.png",
+  },
+} as const;
+
+export const swm = {
+  integration: {
+    illustration: "/images/swm/integration/integration-illustration.png",
+  },
+} as const;
+
 export const home = {
   hero: {
     background: "/images/home/hero/hero-bg.png",

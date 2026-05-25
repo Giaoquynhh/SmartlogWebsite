@@ -1,7 +1,8 @@
 import { ArrowRightIcon } from "./icons";
+import Editable from "../../editor/Editable";
 
 export type ProductHeroProps = {
-  badge?: string;
+  badge?: React.ReactNode;
   title: React.ReactNode;
   description: React.ReactNode;
   primaryCta?: { label: string; href?: string };
@@ -11,7 +12,21 @@ export type ProductHeroProps = {
   illustrationAlt?: string;
   /** Custom illustration slot — takes precedence over `illustration` if provided. */
   illustrationSlot?: React.ReactNode;
+  /**
+   * If provided, the illustration frame becomes editable: team can upload
+   * a real image, drag it, or hide it via the editor toolbar.
+   * Has no effect when `illustrationSlot` is provided (the slot owns its
+   * own editor wiring — see e.g. StmHeroIllustration).
+   */
+  editableIllustrationId?: string;
 };
+
+/** Transparent SVG placeholder for editable hero illustration on dark navy bg. */
+const HERO_PLACEHOLDER =
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 480"><rect width="600" height="480" fill="rgba(255,255,255,0.04)"/><g transform="translate(300 240)" fill="none" stroke="rgba(236,243,255,0.5)" stroke-width="2"><rect x="-32" y="-32" width="64" height="64" rx="12"/><circle cx="-12" cy="-12" r="6"/><path d="M32 16l-20-20-40 40" stroke-linecap="round"/></g><text x="300" y="330" font-family="sans-serif" font-size="16" fill="rgba(236,243,255,0.5)" text-anchor="middle">[Khung ảnh minh hoạ Hero]</text></svg>`
+  );
 
 export default function ProductHero({
   badge,
@@ -22,6 +37,7 @@ export default function ProductHero({
   illustration,
   illustrationAlt = "Illustration",
   illustrationSlot,
+  editableIllustrationId,
 }: ProductHeroProps) {
   return (
     <section
@@ -69,9 +85,20 @@ export default function ProductHero({
           </div>
         </div>
 
-        {/* Illustration side: custom slot > image > placeholder */}
+        {/* Illustration side: custom slot > editable image > static image > placeholder */}
         {illustrationSlot ? (
           <div className="relative">{illustrationSlot}</div>
+        ) : editableIllustrationId ? (
+          <div className="relative rounded-3xl overflow-hidden border border-white/10 bg-white/[0.04] backdrop-blur-sm flex items-center justify-center min-h-[320px] lg:min-h-[420px]">
+            <Editable
+              id={editableIllustrationId}
+              kind="image"
+              src={illustration ?? HERO_PLACEHOLDER}
+              alt={illustrationAlt}
+              className="w-full h-full flex items-center justify-center"
+              imgClassName="w-full h-auto max-h-[420px] object-contain"
+            />
+          </div>
         ) : (
           <div className="relative aspect-[5/4] lg:aspect-auto lg:h-[420px] rounded-3xl overflow-hidden border border-white/10 bg-white/[0.04] backdrop-blur-sm flex items-center justify-center">
             {illustration ? (

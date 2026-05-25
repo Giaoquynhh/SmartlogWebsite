@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { home } from "../assets";
+import Editable from "../editor/Editable";
 
 const stats = [
   { value: "2015", label: "Khởi đầu hành trình" },
@@ -39,35 +40,36 @@ export default function Hero() {
 
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="max-w-[720px]">
-          <h1 className="text-3xl sm:text-4xl lg:text-[40px] xl:text-[44px] leading-[1.2] font-bold tracking-tight drop-shadow-[0_2px_12px_rgba(0,0,0,0.4)]">
-            Kiến tạo hệ sinh thái Logistics<br />
-            hàng đầu Việt Nam
-          </h1>
-          <p className="mt-6 max-w-xl text-base sm:text-lg text-white/90 leading-relaxed drop-shadow-[0_1px_6px_rgba(0,0,0,0.4)]">
-            Smartlog không ngừng đổi mới về công nghệ và giải pháp để doanh
-            nghiệp Việt Nam có thể cạnh tranh ở tầm khu vực, trước nhất là ngay
-            tại &quot;sân nhà&quot; Việt Nam.
-          </p>
+          <Editable id="home.hero.title" kind="text" as="h1" className="text-3xl sm:text-4xl lg:text-[40px] xl:text-[44px] leading-[1.2] font-bold tracking-tight drop-shadow-[0_2px_12px_rgba(0,0,0,0.4)] block">
+            Kiến tạo hệ sinh thái Logistics hàng đầu Việt Nam
+          </Editable>
+          <Editable id="home.hero.description" kind="text" as="p" className="mt-6 max-w-xl text-base sm:text-lg text-white/90 leading-relaxed drop-shadow-[0_1px_6px_rgba(0,0,0,0.4)] block">
+            Smartlog không ngừng đổi mới về công nghệ và giải pháp để doanh nghiệp Việt Nam có thể cạnh tranh ở tầm khu vực, trước nhất là ngay tại "sân nhà" Việt Nam.
+          </Editable>
           <div className="mt-8">
             <a
               href="#products"
               className="inline-flex items-center gap-2 rounded-full bg-[#1e3a8a] hover:bg-[#1e40af] transition-colors px-7 py-3.5 text-base font-semibold shadow-lg shadow-[#0a1a3f]/40"
             >
-              Tìm hiểu thêm
+              <Editable id="home.hero.cta" kind="text" as="span">
+                Tìm hiểu thêm
+              </Editable>
               <span aria-hidden>→</span>
             </a>
           </div>
 
           <div className="mt-12 grid grid-cols-2 gap-4 max-w-xl">
-            {stats.map((s) => (
+            {stats.map((s, i) => (
               <div
                 key={s.label}
                 className="rounded-2xl bg-[#0a1a3f]/60 backdrop-blur-md border border-white/15 px-5 py-4"
               >
-                <div className="text-3xl sm:text-4xl font-bold text-white">
+                <Editable id={`home.hero.stats.${i}.value`} kind="text" as="div" className="text-3xl sm:text-4xl font-bold text-white">
                   {s.value}
-                </div>
-                <div className="mt-1 text-sm text-white/80">{s.label}</div>
+                </Editable>
+                <Editable id={`home.hero.stats.${i}.label`} kind="text" as="div" className="mt-1 text-sm text-white/80">
+                  {s.label}
+                </Editable>
               </div>
             ))}
           </div>

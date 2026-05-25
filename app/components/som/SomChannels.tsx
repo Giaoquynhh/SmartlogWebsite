@@ -1,82 +1,132 @@
-/**
- * Channels showcase for SOM: visualizes "multi-channel order intake on a single platform".
- */
-const channels = [
-  { name: "Shopee", color: "#EE4D2D" },
-  { name: "Lazada", color: "#0F146C" },
-  { name: "Tiki", color: "#1A94FF" },
-  { name: "Sendo", color: "#D0021B" },
-  { name: "TikTok Shop", color: "#000000" },
-  { name: "Zalo", color: "#0068FF" },
-  { name: "Shopify", color: "#5E8E3E" },
-  { name: "Website", color: "#3543F6" },
-];
+"use client";
 
-export default function SomChannels() {
+import { useState } from "react";
+import { ArrowDownIcon } from "../shared/icons";
+import Editable from "../../editor/Editable";
+
+export type SomFeatureItem = {
+  id?: string;
+  title: string;
+  body?: string;
+  bullets?: string[];
+};
+
+export type SomChannelsProps = {
+  items: SomFeatureItem[];
+};
+
+/**
+ * SOM "Đa kênh / multi-channel" section matching the Figma layout:
+ *  - Heading centred at the top
+ *  - Two columns:
+ *      Left:  8-item accordion (the SOM feature list)
+ *      Right: a light-blue card holding a dashboard mockup
+ *             (placeholder — team can upload the real dashboard screenshot)
+ */
+const DASHBOARD_PLACEHOLDER =
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 626 540"><rect width="626" height="540" rx="24" fill="#C4E0FD"/><g transform="translate(313 230)" fill="none" stroke="rgba(53,67,246,0.5)" stroke-width="2"><rect x="-80" y="-50" width="160" height="100" rx="8"/><circle cx="0" cy="0" r="14"/><text y="55" font-family="sans-serif" font-size="14" fill="rgba(53,67,246,0.7)" text-anchor="middle" font-weight="600">SOM</text></g><text x="313" y="380" font-family="sans-serif" font-size="14" fill="rgba(53,67,246,0.6)" text-anchor="middle">[Khung ảnh: dashboard SOM]</text></svg>`
+  );
+
+export default function SomChannels({ items }: SomChannelsProps) {
+  const [open, setOpen] = useState<number | null>(0);
+
   return (
-    <section className="py-16 lg:py-20 bg-white">
+    <section className="py-16 lg:py-24 bg-white">
       <div className="mx-auto max-w-7xl px-6">
         <div className="text-center max-w-3xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl lg:text-[36px] font-bold text-[#333342] leading-tight">
+          <Editable
+            id="som.channels.title"
+            kind="text"
+            as="h2"
+            className="text-2xl sm:text-3xl lg:text-[36px] font-bold text-[#333342] leading-tight block"
+          >
             SOM là công cụ đắc lực với bộ tính năng được thiết kế phù hợp cho đặc thù kênh bán của đa ngành hàng
-          </h2>
-          <p className="mt-4 text-base text-[#615F78] leading-relaxed">
+          </Editable>
+          <Editable
+            id="som.channels.description"
+            kind="text"
+            as="p"
+            className="mt-4 text-base text-[#615F78] leading-relaxed block"
+          >
             SOM sở hữu danh sách tính năng phong phú phục vụ từng giai đoạn của quá trình quản lý đơn hàng, hỗ trợ vận hành hiệu quả hơn.
-          </p>
+          </Editable>
         </div>
 
-        <div className="mt-12 grid lg:grid-cols-5 gap-6 items-center">
-          {/* Channels grid */}
-          <div className="lg:col-span-2 grid grid-cols-2 gap-3">
-            {channels.map((c) => (
-              <div
-                key={c.name}
-                className="rounded-2xl bg-white border border-[#EDEEF1] px-4 py-3 flex items-center gap-3 shadow-[0_2px_12px_rgba(15,23,42,0.04)]"
-              >
-                <span
-                  aria-hidden
-                  className="w-8 h-8 rounded-lg flex-shrink-0"
-                  style={{ backgroundColor: c.color }}
-                />
-                <span className="text-sm font-semibold text-[#333342]">
-                  {c.name}
-                </span>
-              </div>
-            ))}
+        <div className="mt-12 grid lg:grid-cols-2 gap-8 items-start">
+          {/* LEFT — 8-item accordion */}
+          <div className="space-y-3">
+            {items.map((it, i) => {
+              const aid = it.id ?? `som.channels.items.${i}`;
+              const isOpen = open === i;
+              return (
+                <div
+                  key={i}
+                  className="rounded-2xl border border-[#EDEEF1] bg-white overflow-hidden"
+                >
+                  <button
+                    onClick={() => setOpen(isOpen ? null : i)}
+                    className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
+                    aria-expanded={isOpen}
+                  >
+                    <Editable
+                      id={`${aid}.title`}
+                      kind="text"
+                      as="span"
+                      className="text-[15px] lg:text-base font-bold text-[#0b1320]"
+                    >
+                      {it.title}
+                    </Editable>
+                    <span
+                      className={`flex-shrink-0 w-8 h-8 rounded-full text-[#615F78] flex items-center justify-center transition-transform ${
+                        isOpen ? "rotate-180 text-[#3543F6]" : ""
+                      }`}
+                    >
+                      <ArrowDownIcon size={18} />
+                    </span>
+                  </button>
+                  {isOpen && (it.body || it.bullets) && (
+                    <div className="px-5 pb-5 text-[14px] text-[#615F78] leading-relaxed">
+                      {it.body && (
+                        <Editable id={`${aid}.body`} kind="text" as="p">
+                          {it.body}
+                        </Editable>
+                      )}
+                      {it.bullets && (
+                        <ul className="mt-2 space-y-1.5">
+                          {it.bullets.map((b, j) => (
+                            <li key={j} className="flex gap-2">
+                              <span className="text-[#3543F6] mt-1 flex-shrink-0">•</span>
+                              <Editable id={`${aid}.bullets.${j}`} kind="text" as="span">
+                                {b}
+                              </Editable>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
 
-          {/* Center node */}
-          <div className="lg:col-span-1 flex justify-center">
-            <div className="relative">
-              <div className="w-32 h-32 lg:w-40 lg:h-40 rounded-full bg-[#3543F6] text-white flex items-center justify-center text-2xl lg:text-3xl font-bold shadow-[0_8px_32px_rgba(53,67,246,0.4)]">
-                SOM
-              </div>
-              <div aria-hidden className="absolute inset-0 rounded-full border-2 border-dashed border-[#3543F6]/30 -m-4" />
+          {/* RIGHT — Dashboard placeholder, sticky on desktop */}
+          <div className="lg:sticky lg:top-24">
+            <div className="rounded-3xl bg-[#C4E0FD]/40 border border-[#C4E0FD] p-4 lg:p-6 flex items-center justify-center">
+              <Editable
+                id="som.channels.dashboard"
+                kind="image"
+                src={DASHBOARD_PLACEHOLDER}
+                alt="SOM multi-channel dashboard"
+                className="w-full flex items-center justify-center"
+                imgClassName="w-full h-auto rounded-2xl"
+              />
             </div>
-          </div>
-
-          {/* Right: orchestration capabilities */}
-          <div className="lg:col-span-2 space-y-3">
-            <Capability title="Đồng bộ đơn — tồn — giá realtime" />
-            <Capability title="Tự động định tuyến đơn về kho tối ưu" />
-            <Capability title="Phân bổ tồn thông minh theo kênh" />
-            <Capability title="Báo cáo hợp nhất đa kênh tức thì" />
           </div>
         </div>
       </div>
     </section>
-  );
-}
-
-function Capability({ title }: { title: string }) {
-  return (
-    <div className="rounded-2xl bg-[#F7F9FF] border border-[#EDEEF1] px-5 py-4 flex items-center gap-3">
-      <span className="w-9 h-9 rounded-full bg-[#3543F6]/10 text-[#3543F6] flex items-center justify-center flex-shrink-0">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-          <path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </span>
-      <span className="text-sm font-semibold text-[#333342]">{title}</span>
-    </div>
   );
 }

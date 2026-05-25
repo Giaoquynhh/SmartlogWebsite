@@ -1,14 +1,13 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ProductHero from "../components/shared/ProductHero";
-import FeatureAccordion from "../components/shared/FeatureAccordion";
-import SectionIntro from "../components/shared/SectionIntro";
 import IntegrationSection from "../components/shared/IntegrationSection";
 import CustomerLogosGrid from "../components/shared/CustomerLogosGrid";
 import WhyDifferent from "../components/shared/WhyDifferent";
+import CustomerTestimonials from "../components/shared/CustomerTestimonials";
 import StatsBand from "../components/shared/StatsBand";
-import FAQ from "../components/shared/FAQ";
-import LeadForm from "../components/shared/LeadForm";
+import FaqContactSection from "../components/shared/FaqContactSection";
+import OtherSolutions from "../components/shared/OtherSolutions";
 import CtaBanner from "../components/shared/CtaBanner";
 import SomChannels from "../components/som/SomChannels";
 import {
@@ -17,7 +16,11 @@ import {
   somWhyCards,
   somStats,
   somFaqs,
+  somTestimonials,
 } from "../components/som/data";
+import EditorShell from "../editor/EditorShell";
+import Editable from "../editor/Editable";
+import { som as somAssets } from "../assets";
 
 export const metadata = {
   title:
@@ -26,63 +29,126 @@ export const metadata = {
     "SOM giúp bạn quản lý vòng đời đơn hàng và toàn bộ hoạt động bán hàng đa kênh, qua việc tích hợp linh hoạt các sàn TMĐT và hãng vận chuyển.",
 };
 
-export default function SomPage() {
+// The 8 SOM features now drive the SomChannels accordion (matches Figma).
+const somFeaturesWithIds = somFeatures.map((it, i) => ({
+  ...it,
+  id: `som.channels.items.${i}`,
+}));
+const somChannelsWithIds = somChannels.map((it, i) => ({
+  ...it,
+  id: `som.integration.items.${i}`,
+}));
+const somWhyCardsWithIds = somWhyCards.map((c, i) => ({
+  ...c,
+  id: `som.why.${i}`,
+}));
+const somStatsWithIds = somStats.map((s, i) => ({
+  ...s,
+  id: `som.stats.${i}`,
+}));
+const somFaqsWithIds = somFaqs.map((f, i) => ({
+  ...f,
+  id: `som.faq.${i}`,
+}));
+const somTestimonialsWithIds = somTestimonials.map((t, i) => ({
+  ...t,
+  id: `som.testimonials.${i}`,
+}));
+
+export default async function SomPage() {
   return (
-    <main className="relative">
-      <Header />
+    <EditorShell pathname="/som">
+      <main className="relative">
+        <Header />
 
-      <ProductHero
-        badge="SOM · SaaS"
-        title={
-          <>
-            SOM — Giải pháp quản lý đơn hàng
-            <br className="hidden lg:block" /> trên một nền tảng duy nhất
-          </>
-        }
-        description={
-          <>
-            SOM giúp bạn quản lý vòng đời đơn hàng và toàn bộ hoạt động bán hàng đa kênh, qua việc tích hợp linh hoạt các sàn TMĐT và hãng vận chuyển.
-          </>
-        }
-      />
+        <ProductHero
+          badge={
+            <Editable id="som.hero.badge" kind="text" as="span">
+              SOM · SaaS
+            </Editable>
+          }
+          title={
+            <Editable id="som.hero.title" kind="text" as="span">
+              SOM — Giải pháp quản lý đơn hàng trên một nền tảng duy nhất
+            </Editable>
+          }
+          description={
+            <Editable id="som.hero.description" kind="text" as="span">
+              SOM giúp bạn quản lý vòng đời đơn hàng và toàn bộ hoạt động bán hàng đa kênh, qua việc tích hợp linh hoạt các sàn TMĐT và hãng vận chuyển.
+            </Editable>
+          }
+          editableIllustrationId="som.hero.illustration"
+        />
 
-      <SomChannels />
+        <SomChannels items={somFeaturesWithIds} />
 
-      <section className="py-16 lg:py-20 bg-[#F7F9FF]">
-        <div className="mx-auto max-w-4xl px-6">
-          <SectionIntro
-            eyebrow="8 nhóm tính năng"
-            title="Khép kín vòng đời đơn hàng"
-            description="Từ tiếp nhận, định tuyến, đến hoàn hàng và báo cáo — tất cả trong một dashboard."
-          />
-          <div className="mt-10">
-            <FeatureAccordion items={somFeatures} defaultOpen={0} />
-          </div>
-        </div>
-      </section>
+        <IntegrationSection
+          idPrefix="som.integration"
+          title="Đồng bộ đa kênh thông minh với hệ sinh thái phần mềm doanh nghiệp"
+          description="SOM dễ dàng tích hợp với các hệ thống hiện có, từ ERP, kế toán, TMS đến thiết bị phần cứng như handheld — giúp dữ liệu xuyên suốt, vận hành liền mạch."
+          items={somChannelsWithIds}
+          illustration={somAssets.integration.illustration}
+        />
 
-      <IntegrationSection
-        title="Tích hợp linh hoạt với kênh bán và đối tác vận chuyển"
-        description="SOM kết nối nhanh với hệ sinh thái thương mại điện tử và logistics phổ biến tại Việt Nam."
-        items={somChannels}
-      />
+        <CustomerLogosGrid
+          editableIdPrefix="som.logos"
+          title={
+            <Editable id="som.logos.title" kind="text" as="span">
+              Những khách hàng đã tin tưởng Smartlog
+            </Editable>
+          }
+          description={
+            <Editable id="som.logos.description" kind="text" as="span">
+              Đã và đang là nhà cung cấp giải pháp cho hơn 150 doanh nghiệp Logistics, Sản xuất, Thương mại và Phân phối...
+            </Editable>
+          }
+          ctaLabel={
+            <Editable id="som.logos.cta" kind="text" as="span">
+              Khám phá câu chuyện của khách hàng
+            </Editable>
+          }
+        />
 
-      <CustomerLogosGrid />
+        <CustomerTestimonials
+          idPrefix="som.testimonials"
+          title="Và nhận được nhiều phản hồi tích cực"
+          cards={somTestimonialsWithIds}
+        />
 
-      <WhyDifferent
-        title="Điều gì khiến Smartlog trở nên khác biệt và ưu việt"
-        cards={somWhyCards}
-      />
+        <WhyDifferent
+          title={
+            <Editable id="som.why.title" kind="text" as="span">
+              Điều gì khiến Smartlog trở nên khác biệt và ưu việt
+            </Editable>
+          }
+          cards={somWhyCardsWithIds}
+        />
 
-      <StatsBand stats={somStats} ctaLabel="Nhận tư vấn 1-1 từ các chuyên gia" />
+        <StatsBand
+          idPrefix="som.stats"
+          title="Những con số biết nói"
+          stats={somStatsWithIds}
+          ctaLabel="Nhận tư vấn 1-1 từ các chuyên gia"
+        />
 
-      <CtaBanner label="Khám phá câu chuyện của khách hàng" />
+        <CtaBanner
+          label={
+            <Editable id="som.bottomCta" kind="text" as="span">
+              Khám phá câu chuyện của khách hàng
+            </Editable>
+          }
+        />
 
-      <FAQ items={somFaqs} />
+        <FaqContactSection
+          faqIdPrefix="som.faq"
+          faqItems={somFaqsWithIds}
+          contactIdPrefix="som.contact"
+        />
 
-      <LeadForm />
+        <OtherSolutions idPrefix="som.others" excludeCode="SOM" />
 
-      <Footer />
-    </main>
+        <Footer />
+      </main>
+    </EditorShell>
   );
 }

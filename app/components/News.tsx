@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { home } from "@/app/assets";
+import Editable from "../editor/Editable";
 
 type NewsItem = {
   id: number;
@@ -43,9 +44,9 @@ export default function News() {
     <section className="bg-white py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex items-center justify-between gap-4">
-          <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-[#1e3a8a]">
+          <Editable id="home.news.title" kind="text" as="h2" className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-[#1e3a8a]">
             Tin tức nổi bật
-          </h2>
+          </Editable>
           <div className="flex items-center gap-3">
             <button
               onClick={() => setPage((p) => Math.max(0, p - 1))}
@@ -67,38 +68,48 @@ export default function News() {
         </div>
 
         <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-5">
-          {currentNews.map((n, i) => (
-            <article
-              key={n.id}
-              className={`group rounded-2xl overflow-hidden bg-white border transition-all cursor-pointer ${
-                i === 0
-                  ? "border-[#1e3a8a]/30 shadow-[0_8px_30px_rgba(30,58,138,0.12)]"
-                  : "border-gray-100 shadow-sm hover:shadow-lg"
-              }`}
-            >
-              <div className="relative aspect-[4/3] overflow-hidden">
-                <img
-                  src={n.image}
-                  alt={n.title}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute bottom-3 left-3">
-                  <span className="px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wider text-white bg-black/30 backdrop-blur-sm">
-                    {n.category}
-                  </span>
+          {currentNews.map((n, i) => {
+            const nid = `home.news.cards.${n.id}`;
+            return (
+              <article
+                key={n.id}
+                className={`group rounded-2xl overflow-hidden bg-white border transition-all cursor-pointer ${
+                  i === 0
+                    ? "border-[#1e3a8a]/30 shadow-[0_8px_30px_rgba(30,58,138,0.12)]"
+                    : "border-gray-100 shadow-sm hover:shadow-lg"
+                }`}
+              >
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <Editable
+                    id={`${nid}.image`}
+                    kind="image"
+                    src={n.image}
+                    alt={n.title}
+                    className="absolute inset-0 w-full h-full"
+                    imgClassName="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute bottom-3 left-3">
+                    <span className="px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wider text-white bg-black/30 backdrop-blur-sm">
+                      <Editable id={`${nid}.category`} kind="text" as="span">
+                        {n.category}
+                      </Editable>
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <div className="p-4">
-                <div className="text-xs text-gray-500">{n.date}</div>
-                <h3 className="mt-2 font-bold text-[#0b1320] text-[15px] leading-snug line-clamp-2 group-hover:text-[#1e3a8a] transition-colors">
-                  {n.title}
-                </h3>
-                <p className="mt-2 text-xs text-gray-600 line-clamp-2 leading-relaxed">
-                  {n.excerpt}
-                </p>
-              </div>
-            </article>
-          ))}
+                <div className="p-4">
+                  <Editable id={`${nid}.date`} kind="text" as="div" className="text-xs text-gray-500">
+                    {n.date}
+                  </Editable>
+                  <Editable id={`${nid}.title`} kind="text" as="h3" className="mt-2 font-bold text-[#0b1320] text-[15px] leading-snug line-clamp-2 group-hover:text-[#1e3a8a] transition-colors block">
+                    {n.title}
+                  </Editable>
+                  <Editable id={`${nid}.excerpt`} kind="text" as="p" className="mt-2 text-xs text-gray-600 line-clamp-2 leading-relaxed block">
+                    {n.excerpt}
+                  </Editable>
+                </div>
+              </article>
+            );
+          })}
         </div>
 
         <div className="mt-8 flex items-center justify-center gap-2">

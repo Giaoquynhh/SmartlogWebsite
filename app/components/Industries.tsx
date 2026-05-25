@@ -10,6 +10,7 @@ import {
   HeartPulse,
 } from "lucide-react";
 import { home } from "../assets";
+import Editable from "../editor/Editable";
 
 type Industry = {
   id: string;
@@ -136,12 +137,12 @@ export default function Industries() {
   return (
     <section className="bg-white py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-6">
-        <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-[#1e3a8a] text-center leading-tight max-w-4xl mx-auto">
+        <Editable id="home.industries.title" kind="text" as="h2" className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-[#1e3a8a] text-center leading-tight max-w-4xl mx-auto block">
           Smartlog đáp ứng ưu việt đa quy mô, đa ngành hàng
-        </h2>
-        <p className="mt-3 text-lg text-gray-600 text-center">
+        </Editable>
+        <Editable id="home.industries.subtitle" kind="text" as="p" className="mt-3 text-lg text-gray-600 text-center block">
           Với thế mạnh linh hoạt và kết nối đa tầng
-        </p>
+        </Editable>
 
         <div className="mt-10 flex flex-wrap justify-center gap-3">
           {industries.map((ind) => {
@@ -158,14 +159,19 @@ export default function Industries() {
                 }`}
               >
                 <TabIcon className="w-5 h-5" />
-                {ind.name}
+                <Editable id={`home.industries.tabs.${ind.id}`} kind="text" as="span">
+                  {ind.name}
+                </Editable>
               </button>
             );
           })}
         </div>
 
         <h3 className="mt-10 text-xl lg:text-2xl font-bold text-[#1e3a8a]">
-          Ngành {active.name}
+          Ngành{" "}
+          <Editable id={`home.industries.activeLabel.${active.id}`} kind="text" as="span">
+            {active.name}
+          </Editable>
         </h3>
 
         <div className="mt-5 grid lg:grid-cols-[minmax(0,420px)_1fr] gap-6 lg:gap-8 items-stretch">
@@ -175,10 +181,13 @@ export default function Industries() {
             }`}
           >
             {active.image ? (
-              <img
+              <Editable
+                id={`home.industries.${active.id}.image`}
+                kind="image"
                 src={active.image}
                 alt={active.name}
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full"
+                imgClassName="w-full h-full object-cover"
               />
             ) : (
               <Icon className="absolute inset-0 m-auto w-32 h-32 text-white/25" />
@@ -200,7 +209,9 @@ export default function Industries() {
                 {active.bullets.map((b, i) => (
                   <li key={i} className="flex gap-3">
                     <div className="flex-shrink-0 mt-1.5 w-3 h-3 rotate-45 bg-[#1e3a8a]" />
-                    <p className="text-sm text-gray-700 leading-relaxed">{b}</p>
+                    <Editable id={`home.industries.${active.id}.bullets.${i}`} kind="text" as="p" className="text-sm text-gray-700 leading-relaxed block">
+                      {b}
+                    </Editable>
                   </li>
                 ))}
               </ul>
@@ -237,7 +248,9 @@ export default function Industries() {
 
             <div className="mt-2">
               <button className="inline-flex items-center gap-2 rounded-full bg-[#1e3a8a] hover:bg-[#1e40af] transition-colors px-6 py-2.5 text-white text-sm font-semibold">
-                Khám phá
+                <Editable id="home.industries.cta" kind="text" as="span">
+                  Khám phá
+                </Editable>
                 <span aria-hidden>→</span>
               </button>
             </div>

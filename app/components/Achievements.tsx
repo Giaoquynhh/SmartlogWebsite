@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { home } from "../assets";
+import Editable from "../editor/Editable";
 
 type Milestone = {
   year: string;
@@ -96,16 +97,12 @@ export default function Achievements() {
   return (
     <section className="bg-white py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-6">
-        <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-[#1e3a8a] text-center leading-tight">
+        <Editable id="home.achievements.title" kind="text" as="h2" className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-[#1e3a8a] text-center leading-tight block">
           Những thành tựu mà Smartlog đạt được
-        </h2>
-        <p className="mt-4 text-sm sm:text-base text-gray-600 text-center max-w-3xl mx-auto leading-relaxed">
-          Mỗi sự công nhận là một động lực thúc đẩy chúng tôi vươn xa và bền bỉ
-          hơn
-          <br />
-          Hiệu quả vận hành được minh chứng thực tế qua các danh hiệu và giải
-          thưởng uy tín
-        </p>
+        </Editable>
+        <Editable id="home.achievements.description" kind="text" as="p" className="mt-4 text-sm sm:text-base text-gray-600 text-center max-w-3xl mx-auto leading-relaxed block">
+          Mỗi sự công nhận là một động lực thúc đẩy chúng tôi vươn xa và bền bỉ hơn — Hiệu quả vận hành được minh chứng thực tế qua các danh hiệu và giải thưởng uy tín.
+        </Editable>
 
         <div className="mt-12 grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
           <div className="space-y-3">
@@ -130,7 +127,9 @@ export default function Achievements() {
                           isOpen ? "text-[#3b5fd9]" : "text-[#1e3a8a]"
                         }`}
                       />
-                      <span className="text-lg font-bold">{m.year}</span>
+                      <Editable id={`home.achievements.${m.year}.year`} kind="text" as="span" className="text-lg font-bold">
+                        {m.year}
+                      </Editable>
                     </div>
                     <ChevronIcon
                       open={isOpen}
@@ -153,7 +152,9 @@ export default function Achievements() {
                             className="flex gap-2.5 text-sm leading-relaxed text-gray-700"
                           >
                             <span className="flex-shrink-0 mt-1.5 w-1.5 h-1.5 rounded-full bg-[#1e3a8a]" />
-                            <span>{b}</span>
+                            <Editable id={`home.achievements.${m.year}.bullets.${i}`} kind="text" as="span">
+                              {b}
+                            </Editable>
                           </li>
                         ))}
                       </ul>
@@ -165,10 +166,13 @@ export default function Achievements() {
           </div>
 
           <div className="hidden lg:flex justify-center items-center sticky top-24">
-            <img
+            <Editable
+              id="home.achievements.star"
+              kind="image"
               src={home.achievements.star}
               alt="Crystal star"
-              className="w-full max-w-md h-auto drop-shadow-2xl"
+              className="w-full max-w-md"
+              imgClassName="w-full h-auto drop-shadow-2xl"
             />
           </div>
         </div>

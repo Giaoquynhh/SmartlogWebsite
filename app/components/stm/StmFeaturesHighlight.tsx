@@ -3,10 +3,7 @@
 import { useState } from "react";
 import { ArrowDownIcon } from "../shared/icons";
 import type { AccordionItem } from "../shared/FeatureAccordion";
-
-export type StmFeaturesHighlightProps = {
-  items: AccordionItem[];
-};
+import Editable from "../../editor/Editable";
 
 /**
  * STM "Đa tính năng nối liền mọi điểm chạm" section.
@@ -14,6 +11,10 @@ export type StmFeaturesHighlightProps = {
  *  - Left: 8-item feature accordion
  *  - Right: Auto Planning dashboard mock (sticky on desktop)
  */
+export type StmFeaturesHighlightProps = {
+  items: AccordionItem[];
+};
+
 export default function StmFeaturesHighlight({ items }: StmFeaturesHighlightProps) {
   const [open, setOpen] = useState<number | null>(0);
 
@@ -21,20 +22,29 @@ export default function StmFeaturesHighlight({ items }: StmFeaturesHighlightProp
     <section className="py-16 lg:py-24 bg-white">
       <div className="mx-auto max-w-7xl px-6">
         <div className="text-center max-w-3xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl lg:text-[36px] font-bold text-[#333342] leading-tight">
-            Đa tính năng nối liền mọi điểm chạm
-            <br />
-            Vận hành mượt mà trên một nền tảng duy nhất
-          </h2>
-          <p className="mt-4 text-base text-[#615F78] leading-relaxed">
+          <Editable
+            id="stm.features.title"
+            kind="text"
+            as="h2"
+            className="text-2xl sm:text-3xl lg:text-[36px] font-bold text-[#333342] leading-tight block"
+          >
+            Đa tính năng nối liền mọi điểm chạm — Vận hành mượt mà trên một nền tảng duy nhất
+          </Editable>
+          <Editable
+            id="stm.features.description"
+            kind="text"
+            as="p"
+            className="mt-4 text-base text-[#615F78] leading-relaxed block"
+          >
             Các hệ tính năng của STM được thiết kế logic, bám sát luồng vận hành thực tế, giúp nhân viên dễ dàng triển khai và giám sát.
-          </p>
+          </Editable>
         </div>
 
         <div className="mt-12 grid lg:grid-cols-2 gap-8 items-start">
           {/* LEFT — accordion */}
           <div className="space-y-3">
             {items.map((it, i) => {
+              const aid = it.id ?? `stm.features.items.${i}`;
               const isOpen = open === i;
               return (
                 <div
@@ -46,9 +56,9 @@ export default function StmFeaturesHighlight({ items }: StmFeaturesHighlightProp
                     className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
                     aria-expanded={isOpen}
                   >
-                    <span className="text-[15px] lg:text-base font-bold text-[#0b1320]">
+                    <Editable id={`${aid}.title`} kind="text" as="span" className="text-[15px] lg:text-base font-bold text-[#0b1320]">
                       {it.title}
-                    </span>
+                    </Editable>
                     <span
                       className={`flex-shrink-0 w-8 h-8 rounded-full text-[#615F78] flex items-center justify-center transition-transform ${
                         isOpen ? "rotate-180 text-[#3543F6]" : ""
@@ -59,13 +69,19 @@ export default function StmFeaturesHighlight({ items }: StmFeaturesHighlightProp
                   </button>
                   {isOpen && (it.body || it.bullets) && (
                     <div className="px-5 pb-5 text-[14px] text-[#615F78] leading-relaxed">
-                      {it.body}
+                      {it.body && (
+                        <Editable id={`${aid}.body`} kind="text" as="p">
+                          {it.body}
+                        </Editable>
+                      )}
                       {it.bullets && (
                         <ul className="mt-2 space-y-1.5">
                           {it.bullets.map((b, j) => (
                             <li key={j} className="flex gap-2">
                               <span className="text-[#3543F6] mt-1 flex-shrink-0">•</span>
-                              <span>{b}</span>
+                              <Editable id={`${aid}.bullets.${j}`} kind="text" as="span">
+                                {b}
+                              </Editable>
                             </li>
                           ))}
                         </ul>

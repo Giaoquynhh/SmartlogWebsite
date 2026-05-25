@@ -9,21 +9,24 @@ import Achievements from "./components/Achievements";
 import News from "./components/News";
 import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
+import EditorShell from "./editor/EditorShell";
 
-export default function Home() {
+export default async function Home() {
   return (
-    <main className="relative">
-      <Header />
-      <Hero />
-      <StatsHighlight />
-      <Products />
-      <OpenPlatform />
-      <Industries />
-      <Testimonials />
-      <Achievements />
-      <News />
-      <ContactForm />
-      <Footer />
-    </main>
+    <EditorShell pathname="/">
+      <main className="relative">
+        <Header />
+        <Hero />
+        <StatsHighlight />
+        <Products />
+        <OpenPlatform />
+        <Industries />
+        <Testimonials />
+        <Achievements />
+        <News />
+        <ContactForm />
+        <Footer />
+      </main>
+    </EditorShell>
   );
 }

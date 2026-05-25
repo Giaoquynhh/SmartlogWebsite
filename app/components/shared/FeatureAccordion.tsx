@@ -2,10 +2,13 @@
 
 import { useState } from "react";
 import { ArrowDownIcon } from "./icons";
+import Editable from "../../editor/Editable";
 
 export type AccordionItem = {
+  /** stable id; falls back to `${idPrefix}.${index}` if missing */
+  id?: string;
   title: string;
-  body?: React.ReactNode;
+  body?: string;
   bullets?: string[];
 };
 
@@ -13,17 +16,21 @@ export type FeatureAccordionProps = {
   items: AccordionItem[];
   /** Index of item open by default */
   defaultOpen?: number;
+  /** id prefix when items don't carry their own id (e.g. "stm.features") */
+  idPrefix?: string;
 };
 
 export default function FeatureAccordion({
   items,
   defaultOpen = 0,
+  idPrefix = "accordion",
 }: FeatureAccordionProps) {
   const [open, setOpen] = useState<number | null>(defaultOpen);
 
   return (
     <div className="space-y-3">
       {items.map((it, i) => {
+        const aid = it.id ?? `${idPrefix}.${i}`;
         const isOpen = open === i;
         return (
           <div
@@ -35,9 +42,9 @@ export default function FeatureAccordion({
               className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left"
               aria-expanded={isOpen}
             >
-              <span className="text-base lg:text-[17px] font-bold text-[#0b1320]">
+              <Editable id={`${aid}.title`} kind="text" as="span" className="text-base lg:text-[17px] font-bold text-[#0b1320]">
                 {it.title}
-              </span>
+              </Editable>
               <span
                 className={`flex-shrink-0 w-9 h-9 rounded-full bg-[#ECF3FF] text-[#3543F6] flex items-center justify-center transition-transform ${
                   isOpen ? "rotate-180" : ""
@@ -48,13 +55,19 @@ export default function FeatureAccordion({
             </button>
             {isOpen && (it.body || it.bullets) && (
               <div className="px-6 pb-6 text-[15px] text-[#615F78] leading-relaxed">
-                {it.body}
+                {it.body && (
+                  <Editable id={`${aid}.body`} kind="text" as="p">
+                    {it.body}
+                  </Editable>
+                )}
                 {it.bullets && (
                   <ul className="mt-2 space-y-2">
                     {it.bullets.map((b, j) => (
                       <li key={j} className="flex gap-2">
                         <span className="text-[#3543F6] mt-1 flex-shrink-0">•</span>
-                        <span>{b}</span>
+                        <Editable id={`${aid}.bullets.${j}`} kind="text" as="span">
+                          {b}
+                        </Editable>
                       </li>
                     ))}
                   </ul>

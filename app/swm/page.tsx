@@ -1,14 +1,13 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ProductHero from "../components/shared/ProductHero";
-import FeatureAccordion from "../components/shared/FeatureAccordion";
-import SectionIntro from "../components/shared/SectionIntro";
 import IntegrationSection from "../components/shared/IntegrationSection";
 import CustomerLogosGrid from "../components/shared/CustomerLogosGrid";
 import WhyDifferent from "../components/shared/WhyDifferent";
+import CustomerTestimonials from "../components/shared/CustomerTestimonials";
 import StatsBand from "../components/shared/StatsBand";
-import FAQ from "../components/shared/FAQ";
-import LeadForm from "../components/shared/LeadForm";
+import FaqContactSection from "../components/shared/FaqContactSection";
+import OtherSolutions from "../components/shared/OtherSolutions";
 import CtaBanner from "../components/shared/CtaBanner";
 import SwmWorkflow from "../components/swm/SwmWorkflow";
 import {
@@ -17,7 +16,11 @@ import {
   swmWhyCards,
   swmStats,
   swmFaqs,
+  swmTestimonials,
 } from "../components/swm/data";
+import EditorShell from "../editor/EditorShell";
+import Editable from "../editor/Editable";
+import { swm as swmAssets } from "../assets";
 
 export const metadata = {
   title:
@@ -26,60 +29,126 @@ export const metadata = {
     "SWM là nền tảng vận hành kho hiện đại, kiểm soát toàn bộ luồng hàng — nhập, cất, soạn, xuất — với độ chính xác 99%.",
 };
 
-export default function SwmPage() {
+// The 8 SWM features now drive the SwmWorkflow accordion (matches Figma).
+const swmFeaturesWithIds = swmFeatures.map((it, i) => ({
+  ...it,
+  id: `swm.workflow.items.${i}`,
+}));
+const swmIntegrationWithIds = swmIntegration.map((it, i) => ({
+  ...it,
+  id: `swm.integration.items.${i}`,
+}));
+const swmWhyCardsWithIds = swmWhyCards.map((c, i) => ({
+  ...c,
+  id: `swm.why.${i}`,
+}));
+const swmStatsWithIds = swmStats.map((s, i) => ({
+  ...s,
+  id: `swm.stats.${i}`,
+}));
+const swmFaqsWithIds = swmFaqs.map((f, i) => ({
+  ...f,
+  id: `swm.faq.${i}`,
+}));
+const swmTestimonialsWithIds = swmTestimonials.map((t, i) => ({
+  ...t,
+  id: `swm.testimonials.${i}`,
+}));
+
+export default async function SwmPage() {
   return (
-    <main className="relative">
-      <Header />
+    <EditorShell pathname="/swm">
+      <main className="relative">
+        <Header />
 
-      <ProductHero
-        badge="SWM · SaaS"
-        title={
-          <>
-            SWM — Giải pháp quản lý kho hàng toàn diện
-            <br className="hidden lg:block" /> cho doanh nghiệp sản xuất, phân phối, bán lẻ và logistics
-          </>
-        }
-        description={
-          <>
-            Là nền tảng vận hành kho hiện đại giúp doanh nghiệp kiểm soát toàn bộ luồng hàng — từ nhập, cất, soạn đến xuất — với độ chính xác 99%, giúp tăng tốc độ xử lý và giảm thiểu sai sót vận hành. Hơn <b>100+</b> doanh nghiệp đã thành công TỐI ƯU KHO HÀNG VỚI SWM!
-          </>
-        }
-      />
+        <ProductHero
+          badge={
+            <Editable id="swm.hero.badge" kind="text" as="span">
+              SWM · SaaS
+            </Editable>
+          }
+          title={
+            <Editable id="swm.hero.title" kind="text" as="span">
+              SWM — Giải pháp quản lý kho hàng toàn diện cho doanh nghiệp sản xuất, phân phối, bán lẻ và logistics
+            </Editable>
+          }
+          description={
+            <Editable id="swm.hero.description" kind="text" as="span">
+              Là nền tảng vận hành kho hiện đại giúp doanh nghiệp kiểm soát toàn bộ luồng hàng — từ nhập, cất, soạn đến xuất — với độ chính xác 99%, giúp tăng tốc độ xử lý và giảm thiểu sai sót vận hành. Hơn 100+ doanh nghiệp đã thành công TỐI ƯU KHO HÀNG VỚI SWM!
+            </Editable>
+          }
+          editableIllustrationId="swm.hero.illustration"
+        />
 
-      <SwmWorkflow />
+        <SwmWorkflow items={swmFeaturesWithIds} />
 
-      <section className="py-16 lg:py-20 bg-[#F7F9FF]">
-        <div className="mx-auto max-w-4xl px-6">
-          <SectionIntro
-            eyebrow="8 nhóm tính năng"
-            title="Khép kín mọi nghiệp vụ kho hàng"
-            description="Từ nhận đơn đến tính bill, mỗi nghiệp vụ đều được số hoá và liên thông."
-          />
-          <div className="mt-10">
-            <FeatureAccordion items={swmFeatures} defaultOpen={0} />
-          </div>
-        </div>
-      </section>
+        <IntegrationSection
+          idPrefix="swm.integration"
+          title="Kết nối toàn diện với hệ sinh thái phần mềm doanh nghiệp"
+          description="SWM dễ dàng tích hợp với các hệ thống hiện có, từ ERP, kế toán, TMS đến thiết bị phần cứng như handheld — giúp dữ liệu xuyên suốt, vận hành liền mạch."
+          items={swmIntegrationWithIds}
+          illustration={swmAssets.integration.illustration}
+        />
 
-      <IntegrationSection
-        title="Kết nối toàn diện với hệ sinh thái phần mềm doanh nghiệp"
-        description="SWM dễ dàng tích hợp với các hệ thống hiện có, từ ERP, kế toán, TMS đến thiết bị phần cứng như handheld — giúp dữ liệu xuyên suốt, vận hành liền mạch."
-        items={swmIntegration}
-      />
+        <CustomerLogosGrid
+          editableIdPrefix="swm.logos"
+          title={
+            <Editable id="swm.logos.title" kind="text" as="span">
+              Những khách hàng đã tin tưởng Smartlog
+            </Editable>
+          }
+          description={
+            <Editable id="swm.logos.description" kind="text" as="span">
+              Đã và đang là nhà cung cấp giải pháp cho hơn 150 doanh nghiệp Logistics, Sản xuất, Thương mại và Phân phối...
+            </Editable>
+          }
+          ctaLabel={
+            <Editable id="swm.logos.cta" kind="text" as="span">
+              Khám phá câu chuyện của khách hàng
+            </Editable>
+          }
+        />
 
-      <CustomerLogosGrid />
+        <CustomerTestimonials
+          idPrefix="swm.testimonials"
+          title="Và nhận được nhiều phản hồi tích cực"
+          cards={swmTestimonialsWithIds}
+        />
 
-      <WhyDifferent cards={swmWhyCards} />
+        <WhyDifferent
+          title={
+            <Editable id="swm.why.title" kind="text" as="span">
+              Điều gì khiến Smartlog trở nên khác biệt và ưu việt
+            </Editable>
+          }
+          cards={swmWhyCardsWithIds}
+        />
 
-      <StatsBand stats={swmStats} ctaLabel="Nhận tư vấn 1-1 từ các chuyên gia" />
+        <StatsBand
+          idPrefix="swm.stats"
+          title="Những con số biết nói"
+          stats={swmStatsWithIds}
+          ctaLabel="Nhận tư vấn 1-1 từ các chuyên gia"
+        />
 
-      <CtaBanner label="Khám phá câu chuyện của khách hàng" />
+        <CtaBanner
+          label={
+            <Editable id="swm.bottomCta" kind="text" as="span">
+              Khám phá câu chuyện của khách hàng
+            </Editable>
+          }
+        />
 
-      <FAQ items={swmFaqs} />
+        <FaqContactSection
+          faqIdPrefix="swm.faq"
+          faqItems={swmFaqsWithIds}
+          contactIdPrefix="swm.contact"
+        />
 
-      <LeadForm />
+        <OtherSolutions idPrefix="swm.others" excludeCode="SWM" />
 
-      <Footer />
-    </main>
+        <Footer />
+      </main>
+    </EditorShell>
   );
 }
