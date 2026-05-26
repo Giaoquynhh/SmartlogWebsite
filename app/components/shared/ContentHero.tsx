@@ -51,12 +51,21 @@ export default function ContentHero({
       className="relative overflow-hidden text-white pt-44 pb-12 lg:pt-52 lg:pb-16"
       style={{ backgroundColor: "#161A50" }}
     >
-      {/* Chữ "f" watermark — clone background của /about, căn giữa, không chạm đáy. */}
+      {/* Background decorative layers — đồng bộ /about hero. */}
       {showWatermark && (
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 overflow-hidden select-none z-0"
         >
+          {/* Group 10: đốm circuit-board phía trái-dưới */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/about/hero/hero-decor-group-10.svg"
+            alt=""
+            className="absolute left-0 opacity-60"
+            style={{ bottom: 0, width: "50%", height: "auto" }}
+          />
+          {/* Chữ "f" watermark */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/about/hero/hero-dot-pattern.svg"

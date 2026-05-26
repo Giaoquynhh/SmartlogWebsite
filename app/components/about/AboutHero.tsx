@@ -48,11 +48,41 @@ export default function AboutHero({ idPrefix = "about.hero" }: AboutHeroProps) {
           maxWidth: `${FIGMA_W}px`,
         }}
       >
-        {/* Dot pattern SVG ở góc trên-phải — phủ toàn bộ vùng phía sau ảnh */}
+        {/* Background decorative layers — đúng theo Figma:
+            - Group 9 (đốm nhỏ rải, 305×538, x=374 y=270)
+            - Group 10 (đốm rộng nền, 951×633, x=0 y=492)
+            - Group 3 (chữ "f" watermark + dot pattern, 1920×585, top y=0) */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 select-none"
         >
+          {/* Group 10: đốm circuit-board rộng phía trái-dưới (sau cụm stats) */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/about/hero/hero-decor-group-10.svg"
+            alt=""
+            className="absolute opacity-70"
+            style={{
+              left: pct(0, FIGMA_W),
+              top: pct(492, FIGMA_H),
+              width: pct(951, FIGMA_W),
+              height: pct(633, FIGMA_H),
+            }}
+          />
+          {/* Group 9: đốm nhỏ rải bên trái-giữa hero */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/about/hero/hero-decor-group-9.svg"
+            alt=""
+            className="absolute opacity-80"
+            style={{
+              left: pct(374, FIGMA_W),
+              top: pct(270, FIGMA_H),
+              width: pct(305, FIGMA_W),
+              height: pct(538, FIGMA_H),
+            }}
+          />
+          {/* Group 3: chữ "f" watermark + nửa dot pattern phía trên */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/about/hero/hero-dot-pattern.svg"
@@ -65,7 +95,7 @@ export default function AboutHero({ idPrefix = "about.hero" }: AboutHeroProps) {
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(22,26,80,0) 4%, rgba(22,26,80,0.85) 94%)",
+                "linear-gradient(180deg, rgba(22,26,80,0) 4%, rgba(22,26,80,0.5) 94%)",
             }}
           />
         </div>

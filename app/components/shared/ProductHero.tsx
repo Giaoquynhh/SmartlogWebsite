@@ -44,13 +44,21 @@ export default function ProductHero({
       className="relative overflow-hidden text-white pt-44 pb-16 lg:pt-52 lg:pb-20 lg:min-h-[720px] flex items-center"
       style={{ backgroundColor: "#161A50" }}
     >
-      {/* Chữ "f" watermark — clone background của /about.
-          Width đo theo height section (giữ tỉ lệ SVG 1920×585), căn giữa,
-          để chữ "f" luôn nằm giữa hero và không chạm đáy. */}
+      {/* Background decorative layers — đồng bộ /about hero:
+          dot circuit-board + đốm nhỏ + chữ "f" watermark. */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 overflow-hidden select-none z-0"
       >
+        {/* Group 10: đốm circuit-board phía trái-dưới */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/about/hero/hero-decor-group-10.svg"
+          alt=""
+          className="absolute left-0 opacity-60"
+          style={{ bottom: 0, width: "50%", height: "auto" }}
+        />
+        {/* Chữ "f" watermark — căn giữa, không chạm đáy */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/about/hero/hero-dot-pattern.svg"
