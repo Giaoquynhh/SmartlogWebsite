@@ -78,6 +78,17 @@ html, body {
 }
 .animate-float-slow { animation: float-slow 9s ease-in-out infinite; }
 
+@keyframes core-values-d-drop {
+  0%   { opacity: 0; transform: translate(-50%, -180%) scale(0.7); }
+  60%  { opacity: 1; transform: translate(-50%, 8%)    scale(1.04); }
+  80%  {             transform: translate(-50%, -4%)   scale(0.99); }
+  100% { opacity: 1; transform: translate(-50%, 0)     scale(1); }
+}
+.core-values-d-drop { animation: core-values-d-drop 1.4s cubic-bezier(0.22, 1, 0.36, 1) 200ms both; }
+@media (prefers-reduced-motion: reduce) {
+  .core-values-d-drop { animation: none; }
+}
+
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }

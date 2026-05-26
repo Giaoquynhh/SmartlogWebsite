@@ -45,7 +45,7 @@ export default function CoreValues({ idPrefix = "about.coreValues" }: CoreValues
         {/* Khung 1600×1600 chứa toàn bộ illustration (sao + icon + text) */}
         <Reveal as="div" variant="scale">
           <div
-            className="relative mx-auto"
+            className="relative mx-auto group/values"
             style={{
               width: "100%",
               maxWidth: "1280px",
@@ -56,8 +56,27 @@ export default function CoreValues({ idPrefix = "about.coreValues" }: CoreValues
             <img
               src="/images/about/values/core-values-star.png"
               alt="5 giá trị cốt lõi của Smartlog: Thực tế, Thực trí, Thực tầm, Thực tâm, Thực tín"
-              className="absolute inset-0 w-full h-full object-contain select-none"
+              className="absolute inset-0 w-full h-full object-contain select-none transition-transform duration-700 ease-out group-hover/values:scale-[1.02]"
             />
+            {/* "d" mark Deep Blue #3543F6 ở đỉnh ngôi sao — Figma node 3223-5568. */}
+            <div
+              className="absolute core-values-d-drop"
+              style={{
+                width: `${(74.94 / 1600) * 100}%`,
+                top: `${(30 / 1600) * 100}%`,
+                left: "50%",
+                transform: "translateX(-50%)",
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/about/values/core-values-d-mark.svg"
+                alt=""
+                aria-hidden="true"
+                className="w-full h-auto select-none pointer-events-none animate-float"
+                style={{ filter: "drop-shadow(0 6px 14px rgba(53,67,246,0.35))" }}
+              />
+            </div>
           </div>
         </Reveal>
       </div>
