@@ -1,6 +1,5 @@
 import { ArrowRightIcon } from "./icons";
 import Editable from "../../editor/Editable";
-import { shared } from "../../assets";
 
 export type ProductHeroProps = {
   badge?: React.ReactNode;
@@ -42,33 +41,31 @@ export default function ProductHero({
 }: ProductHeroProps) {
   return (
     <section
-      className="relative overflow-hidden text-white pt-28 pb-16 lg:pt-36 lg:pb-20 lg:min-h-[720px] flex items-center"
+      className="relative overflow-hidden text-white pt-44 pb-16 lg:pt-52 lg:pb-20 lg:min-h-[720px] flex items-center"
       style={{ backgroundColor: "#161A50" }}
     >
-      {/* Shared Smartlog hero watermark (same SVG used on Blog/Projects/Events) */}
+      {/* Chữ "f" watermark — clone background của /about.
+          Width đo theo height section (giữ tỉ lệ SVG 1920×585), căn giữa,
+          để chữ "f" luôn nằm giữa hero và không chạm đáy. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 overflow-hidden select-none"
+        className="pointer-events-none absolute inset-0 overflow-hidden select-none z-0"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={shared.heroWatermark}
+          src="/images/about/hero/hero-dot-pattern.svg"
           alt=""
-          className="absolute inset-0 w-full h-full object-cover opacity-90 animate-float-slow"
+          className="absolute left-1/2 -translate-x-1/2"
+          style={{
+            top: "16%",
+            height: "68%",
+            width: "auto",
+            maxWidth: "none",
+          }}
         />
       </div>
 
-      {/* decorative gradient orbs */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 animate-float-slow"
-        style={{
-          background:
-            "radial-gradient(circle at 12% 18%, rgba(53,67,246,0.35) 0%, transparent 45%), radial-gradient(circle at 88% 78%, rgba(156,187,255,0.18) 0%, transparent 50%)",
-        }}
-      />
-
-      <div className="relative w-full mx-auto max-w-7xl px-6 grid lg:grid-cols-2 gap-10 items-center">
+      <div className="relative z-10 w-full mx-auto max-w-7xl px-6 grid lg:grid-cols-2 gap-10 items-center">
         <div className="max-w-2xl">
           {badge && (
             <span className="anim-fade-up inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 px-4 py-1.5 text-sm font-medium text-[#ECF3FF] mb-5">
@@ -84,14 +81,24 @@ export default function ProductHero({
           <div className="anim-fade-up delay-300 mt-8 flex flex-wrap gap-3">
             <a
               href={primaryCta.href}
-              className="cta-shimmer inline-flex items-center gap-2 rounded-xl bg-[#ECF3FF] hover:bg-white transition-all hover:-translate-y-0.5 px-6 py-3 text-base font-bold text-[#161A50] shadow-lg"
+              className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[#ECF3FF] font-semibold transition-all hover:-translate-y-0.5"
+              style={{
+                background: "#3543F6",
+                boxShadow:
+                  "inset 0 -4px 11px rgba(255,255,255,0.25), 0 8px 24px rgba(53,67,246,0.35)",
+                border: "1px solid transparent",
+                backgroundImage:
+                  "linear-gradient(#3543F6, #3543F6), linear-gradient(180deg, #ECF3FF 0%, #3B83FF 100%)",
+                backgroundOrigin: "border-box",
+                backgroundClip: "padding-box, border-box",
+              }}
             >
               {primaryCta.label}
               <ArrowRightIcon size={18} />
             </a>
             <a
               href={secondaryCta.href}
-              className="inline-flex items-center gap-2 rounded-xl border border-[#ECF3FF]/60 hover:border-[#ECF3FF] hover:bg-white/10 transition-all hover:-translate-y-0.5 px-6 py-3 text-base font-bold text-[#ECF3FF]"
+              className="inline-flex items-center gap-2 rounded-full border border-[#ECF3FF]/60 hover:border-[#ECF3FF] hover:bg-white/10 transition-all hover:-translate-y-0.5 px-7 py-3.5 text-base font-semibold text-[#ECF3FF]"
             >
               {secondaryCta.label}
               <ArrowRightIcon size={18} />

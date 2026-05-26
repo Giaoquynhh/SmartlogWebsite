@@ -1,5 +1,4 @@
 import Editable from "../../editor/Editable";
-import { shared } from "../../assets";
 import Reveal from "../Reveal";
 
 export type HeroStatItem = {
@@ -49,22 +48,33 @@ export default function ContentHero({
 
   return (
     <section
-      className="relative overflow-hidden text-white pt-40 pb-12 lg:pt-48 lg:pb-16"
+      className="relative overflow-hidden text-white pt-44 pb-12 lg:pt-52 lg:pb-16"
       style={{ backgroundColor: "#161A50" }}
     >
-      {/* Figma hero watermark — letter mark + dotted pattern + gradient.
-          Sized to the section bounds so the giant glyph sits behind the title
-          instead of stretching to cover the full viewport. */}
+      {/* Chữ "f" watermark — clone background của /about, căn giữa, không chạm đáy. */}
       {showWatermark && (
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 overflow-hidden select-none"
+          className="pointer-events-none absolute inset-0 overflow-hidden select-none z-0"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={shared.heroWatermark}
+            src="/images/about/hero/hero-dot-pattern.svg"
             alt=""
-            className="absolute inset-0 w-full h-full object-contain object-center opacity-90 anim-fade-in animate-float-slow"
+            className="absolute left-1/2 -translate-x-1/2"
+            style={{
+              top: "16%",
+              height: "68%",
+              width: "auto",
+              maxWidth: "none",
+            }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(22,26,80,0) 4%, rgba(22,26,80,0.85) 94%)",
+            }}
           />
         </div>
       )}
