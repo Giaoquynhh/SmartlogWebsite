@@ -1,20 +1,28 @@
 import Editable from "../../editor/Editable";
 import Reveal from "../Reveal";
-import { coreValues } from "./data";
 
 export type CoreValuesProps = {
   idPrefix?: string;
 };
 
 /**
- * 5 giá trị cốt lõi: THỰC TẾ / THỰC TRÍ / THỰC TẦM / THỰC TÂM / THỰC TÍN.
- * Layout: heading center + 5 cards màu riêng theo grid responsive.
+ * "Giá trị cốt lõi" — clone 1:1 từ Figma node 3223-5388.
+ *
+ * Layout: heading center + khung 1600×1600 chứa hình minh hoạ
+ * (PNG export trực tiếp từ Figma, gồm sẵn ngôi sao 5 cánh 3D + 5 icon + 5 cụm
+ * text THỰC TẾ / TRÍ / TẦM / TÂM / TÍN với keywords).
+ * Background section: `#F7F8F8`.
+ *
+ * Vì PNG đã bao gồm sẵn text từ Figma, ta KHÔNG overlay thêm text code-side
+ * để tránh duplicate. Nếu sau này muốn edit text trong editor mode, sẽ cần
+ * export riêng phần ngôi sao + icons (không có text) rồi overlay <Editable>.
  */
 export default function CoreValues({ idPrefix = "about.coreValues" }: CoreValuesProps) {
   return (
-    <section className="py-16 lg:py-24 bg-[#F7F8F8]">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="max-w-2xl mx-auto text-center mb-12 lg:mb-16">
+    <section className="relative py-20 lg:py-28 bg-[#F7F8F8] overflow-hidden">
+      <div className="relative mx-auto max-w-[1600px] px-6">
+        {/* Heading */}
+        <div className="max-w-2xl mx-auto text-center mb-10 lg:mb-12">
           <Editable
             id={`${idPrefix}.title`}
             kind="text"
@@ -27,56 +35,30 @@ export default function CoreValues({ idPrefix = "about.coreValues" }: CoreValues
             id={`${idPrefix}.description`}
             kind="text"
             as="p"
-            className="mt-4 text-base text-[#25272C] leading-relaxed block"
+            className="mt-4 text-base text-[#25272C] leading-[1.6] block"
           >
             Chúng tôi tin rằng một tổ chức bền vững phải được xây dựng từ những giá trị thật,
             là kim chỉ nam cho mọi hành động, quyết định và định hướng phát triển.
           </Editable>
         </div>
 
-        <Reveal as="div" stagger className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
-          {coreValues.map((v, i) => (
-            <div
-              key={v.name}
-              className="rounded-2xl bg-white p-6 lg:p-7 shadow-[0_4px_24px_rgba(15,23,42,0.06)] border border-[#EDEEF1] hover:-translate-y-1 transition-transform"
-            >
-              <div
-                aria-hidden
-                className="h-1.5 w-12 rounded-full mb-5"
-                style={{ backgroundColor: v.color }}
-              />
-              <h3
-                className="text-xl lg:text-2xl font-black tracking-wider mb-4"
-                style={{ color: v.color }}
-              >
-                <Editable
-                  id={`${idPrefix}.items.${i}.name`}
-                  kind="text"
-                  as="span"
-                >
-                  {v.name}
-                </Editable>
-              </h3>
-              <ul className="space-y-2 text-sm text-[#25272C]">
-                {v.keywords.map((kw, k) => (
-                  <li key={k} className="flex items-start gap-2">
-                    <span
-                      aria-hidden
-                      className="mt-2 inline-block h-1.5 w-1.5 rounded-full flex-shrink-0"
-                      style={{ backgroundColor: v.color }}
-                    />
-                    <Editable
-                      id={`${idPrefix}.items.${i}.keywords.${k}`}
-                      kind="text"
-                      as="span"
-                    >
-                      {kw}
-                    </Editable>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+        {/* Khung 1600×1600 chứa toàn bộ illustration (sao + icon + text) */}
+        <Reveal as="div" variant="scale">
+          <div
+            className="relative mx-auto"
+            style={{
+              width: "100%",
+              maxWidth: "1280px",
+              aspectRatio: "1600 / 1600",
+            }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/about/values/core-values-star.png"
+              alt="5 giá trị cốt lõi của Smartlog: Thực tế, Thực trí, Thực tầm, Thực tâm, Thực tín"
+              className="absolute inset-0 w-full h-full object-contain select-none"
+            />
+          </div>
         </Reveal>
       </div>
     </section>
