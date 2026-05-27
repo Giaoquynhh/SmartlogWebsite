@@ -105,7 +105,7 @@ export default function AboutHero({ idPrefix = "about.hero" }: AboutHeroProps) {
           className="absolute"
           style={{
             left: pct(95, FIGMA_W),
-            top: pct(171, FIGMA_H),
+            top: pct(240, FIGMA_H),
             width: pct(616, FIGMA_W),
           }}
         >

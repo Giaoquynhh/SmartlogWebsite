@@ -531,6 +531,125 @@ html, body {
 .kpi-arrow { animation: arrow-bob 1.8s ease-in-out infinite; }
 
 /* =========================================================
+   Global page — animations
+   ========================================================= */
+
+/* Gradient text scan for hero title */
+@keyframes hero-gradient-pan {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+.hero-gradient-text {
+  background: linear-gradient(
+    90deg,
+    #ECF3FF 0%,
+    #9CBBFF 30%,
+    #FFFFFF 50%,
+    #9CBBFF 70%,
+    #ECF3FF 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: hero-gradient-pan 6s ease-in-out infinite;
+}
+
+/* Stats pulse — when stat row enters viewport */
+@keyframes stat-glow {
+  0%, 100% { filter: drop-shadow(0 0 0 rgba(53,67,246,0)); }
+  50%      { filter: drop-shadow(0 4px 16px rgba(53,67,246,0.35)); }
+}
+.stat-value:hover { animation: stat-glow 1.5s ease-in-out; }
+
+/* World map — slow continuous breathing zoom */
+@keyframes map-breathe {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.015); }
+}
+.world-map-breathe { animation: map-breathe 10s ease-in-out infinite; transform-origin: center; }
+
+/* Floating decorative dots — slow vertical drift */
+@keyframes drift-up {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+  50%  { transform: translateY(-20px) rotate(5deg); opacity: 0.8; }
+  100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+}
+.drift-up { animation: drift-up 7s ease-in-out infinite; }
+
+@keyframes drift-down {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+  50%  { transform: translateY(20px) rotate(-5deg); opacity: 0.8; }
+  100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+}
+.drift-down { animation: drift-down 8s ease-in-out infinite; }
+
+/* Award card — trophy bounce on hover + sparkle */
+@keyframes trophy-bounce {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25%      { transform: translateY(-4px) rotate(-3deg); }
+  75%      { transform: translateY(-2px) rotate(3deg); }
+}
+.award-card:hover .award-icon { animation: trophy-bounce 0.6s ease-in-out; }
+
+/* Solution checkbox hover */
+.solution-row {
+  transition: transform 0.2s ease, padding-left 0.2s ease;
+}
+.solution-row:hover {
+  padding-left: 6px;
+}
+
+/* Hero subtitle slide-in repeat */
+@keyframes shine-text {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Section title underline grows on scroll */
+.global-section-title {
+  position: relative;
+  display: inline-block;
+}
+.global-section-title::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -12px;
+  height: 3px;
+  width: 0;
+  background: linear-gradient(90deg, #3543F6 0%, #9CBBFF 100%);
+  border-radius: 999px;
+  transform: translateX(-50%);
+  transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+}
+[data-reveal].is-visible .global-section-title::after {
+  width: 72px;
+}
+
+/* Stat row card — gradient sweep border on hover */
+.stats-card {
+  position: relative;
+  isolation: isolate;
+}
+.stats-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(120deg, transparent 30%, rgba(53,67,246,0.18) 50%, transparent 70%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  transition: background-position 0.8s ease-out;
+  pointer-events: none;
+  z-index: -1;
+}
+.stats-card:hover::before {
+  background-position: -100% 0;
+}
+
+/* =========================================================
    Respect reduced motion
    ========================================================= */
 @media (prefers-reduced-motion: reduce) {

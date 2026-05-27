@@ -50,7 +50,7 @@ export default function Hero() {
           </Editable>
           <div className="mt-8 anim-fade-up delay-300">
             <a
-              href="#products"
+              href="/about"
               className="cta-shimmer inline-flex items-center gap-2 rounded-full bg-[#1e3a8a] hover:bg-[#1e40af] transition-all hover:-translate-y-0.5 px-7 py-3.5 text-base font-semibold shadow-lg shadow-[#0a1a3f]/40"
             >
               <Editable id="home.hero.cta" kind="text" as="span">

@@ -29,7 +29,7 @@ export default function Header() {
           </Link>
 
           <div className="hidden lg:flex items-center gap-7 text-[15px] whitespace-nowrap">
-            <span className="opacity-80">Global</span>
+            <Link href="/global" className="opacity-80 hover:opacity-100 transition-opacity">Global</Link>
             <span className="opacity-80">Artificial intelligence</span>
             <span className="font-medium">VN / ENG</span>
             <a

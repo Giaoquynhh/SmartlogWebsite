@@ -120,7 +120,7 @@ export default async function ContactPage() {
               id="contact.hero.title"
               kind="text"
               as="h1"
-              className="anim-fade-up text-5xl sm:text-6xl lg:text-[72px] leading-[1.05] font-bold tracking-tight text-[#ECF3FF] block"
+              className="anim-fade-up hero-gradient-text text-5xl sm:text-6xl lg:text-[72px] leading-[1.05] font-bold tracking-tight block"
             >
               Liên hệ
             </Editable>
