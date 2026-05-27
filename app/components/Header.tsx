@@ -9,7 +9,7 @@ const navItems: { label: string; href: string }[] = [
   { label: "Khách hàng", href: "#" },
   { label: "Tài nguyên", href: "/blog" },
   { label: "Về Smartlog", href: "/about" },
-  { label: "Liên hệ", href: "#contact" },
+  { label: "Liên hệ", href: "/contact" },
 ];
 
 export default function Header() {
