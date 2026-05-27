@@ -115,8 +115,7 @@ export default function EcosystemMap({ idPrefix = "about.ecosystem" }: Ecosystem
               />
             </Abs>
 
-            {/* 5 Tier bands #DDE9FF — hình thang đậm hơn pyramid base, tạo các "lát" tier.
-                Mỗi band có drop-down animation với delay tăng dần (từ đỉnh xuống đáy). */}
+            {/* 5 Tier bands #DDE9FF — hình thang trong suốt nhẹ, tạo các "lát" tier */}
             {BANDS.map((b, i) => (
               <Abs key={b.src} x={b.x} y={b.y} w={b.w} h={b.h} zIndex={1}>
                 <div className={`pyramid-tier pyramid-tier-${i + 1} w-full h-full`}>
@@ -126,6 +125,7 @@ export default function EcosystemMap({ idPrefix = "about.ecosystem" }: Ecosystem
                     alt=""
                     aria-hidden="true"
                     className="w-full h-full pointer-events-none select-none"
+                    style={{ opacity: 0.55 }}
                   />
                 </div>
               </Abs>
@@ -159,6 +159,7 @@ export default function EcosystemMap({ idPrefix = "about.ecosystem" }: Ecosystem
                   alt=""
                   aria-hidden="true"
                   className="w-full h-full pointer-events-none select-none"
+                  style={{ opacity: 0.55 }}
                 />
               </div>
             </Abs>
