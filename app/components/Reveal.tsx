@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ElementType, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type ElementType, type ReactNode } from "react";
 
 type RevealVariant = "up" | "down" | "left" | "right" | "scale" | "fade";
 
@@ -46,25 +46,57 @@ export default function Reveal({
   const ref = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
 
+  const reveal = useCallback(
+    (immediately = false) => {
+      if (delay && delay > 0 && !immediately) {
+        window.setTimeout(() => setVisible(true), delay);
+      } else {
+        setVisible(true);
+      }
+    },
+    [delay]
+  );
+
+  const checkViewport = useCallback(
+    (immediately = false) => {
+      const el = ref.current;
+      if (!el || visible) return;
+
+      if (typeof IntersectionObserver === "undefined") {
+        reveal(immediately);
+        return;
+      }
+
+      const rect = el.getBoundingClientRect();
+      const alreadyInView =
+        rect.top < window.innerHeight && rect.bottom > 0;
+      if (alreadyInView) {
+        reveal(immediately);
+      }
+    },
+    [visible, reveal]
+  );
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
-    // SSR safety + browsers without IO support → reveal immediately.
-    if (typeof IntersectionObserver === "undefined") {
-      setVisible(true);
-      return;
-    }
+    // Wait one frame so layout is stable, then check.
+    let raf = requestAnimationFrame(() => {
+      raf = requestAnimationFrame(() => checkViewport(true));
+    });
+
+    // bfcache restore: browser may keep the page hidden then swap it in.
+    const onPageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) checkViewport(true);
+    };
+    window.addEventListener("pageshow", onPageShow);
 
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
         if (entry.isIntersecting) {
-          if (delay && delay > 0) {
-            window.setTimeout(() => setVisible(true), delay);
-          } else {
-            setVisible(true);
-          }
+          reveal();
           if (once) observer.disconnect();
         } else if (!once) {
           setVisible(false);
@@ -74,8 +106,13 @@ export default function Reveal({
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
-  }, [delay, once, rootMargin, threshold]);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("pageshow", onPageShow);
+      observer.disconnect();
+    };
+  }, [once, rootMargin, threshold, checkViewport, reveal]);
 
   const classes = [
     stagger ? "reveal-stagger" : "",

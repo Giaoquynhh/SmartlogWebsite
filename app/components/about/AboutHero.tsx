@@ -131,7 +131,7 @@ export default function AboutHero({ idPrefix = "about.hero" }: AboutHeroProps) {
           <div className="mt-7">
             <a
               href="#journey"
-              className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[#ECF3FF] font-medium transition-all hover:-translate-y-0.5"
+              className="cta-shimmer inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[#ECF3FF] font-medium transition-all hover:-translate-y-0.5"
               style={{
                 background: "#3543F6",
                 boxShadow:
@@ -171,10 +171,10 @@ export default function AboutHero({ idPrefix = "about.hero" }: AboutHeroProps) {
                 }}
               >
                 <div
-                  className="text-4xl sm:text-5xl lg:text-[56px] font-extrabold leading-none tracking-tight"
+                  className="gradient-pan text-4xl sm:text-5xl lg:text-[56px] font-extrabold leading-none tracking-tight whitespace-nowrap"
                   style={{
                     backgroundImage:
-                      "linear-gradient(180deg, #A8B8FF 0%, #5B6CFF 55%, #3543F6 100%)",
+                      "linear-gradient(90deg, #ECF3FF 0%, #9CBBFF 30%, #ECF3FF 60%, #9CBBFF 100%)",
                     WebkitBackgroundClip: "text",
                     backgroundClip: "text",
                     WebkitTextFillColor: "transparent",

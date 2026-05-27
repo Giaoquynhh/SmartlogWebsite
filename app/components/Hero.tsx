@@ -67,9 +67,20 @@ export default function Hero() {
                 className="anim-fade-up rounded-2xl bg-[#0a1a3f]/60 backdrop-blur-md border border-white/15 px-5 py-4 transition-all hover:-translate-y-1 hover:bg-[#0a1a3f]/80 hover:border-white/30"
                 style={{ animationDelay: `${400 + i * 100}ms` }}
               >
-                <Editable id={`home.hero.stats.${i}.value`} kind="text" as="div" className="text-3xl sm:text-4xl font-bold text-white">
-                  {s.value}
-                </Editable>
+                <div
+                  className="gradient-pan text-3xl sm:text-4xl font-extrabold whitespace-nowrap"
+                  style={{
+                    backgroundImage: "linear-gradient(90deg, #ECF3FF 0%, #9CBBFF 30%, #ECF3FF 60%, #9CBBFF 100%)",
+                    WebkitBackgroundClip: "text",
+                    backgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    color: "transparent",
+                  }}
+                >
+                  <Editable id={`home.hero.stats.${i}.value`} kind="text" as="span">
+                    {s.value}
+                  </Editable>
+                </div>
                 <Editable id={`home.hero.stats.${i}.label`} kind="text" as="div" className="mt-1 text-sm text-white/80">
                   {s.label}
                 </Editable>

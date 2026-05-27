@@ -6,7 +6,7 @@ import { useState } from "react";
 const navItems: { label: string; href: string }[] = [
   { label: "Giải pháp", href: "#" },
   { label: "Ngành hàng", href: "#" },
-  { label: "Khách hàng", href: "#" },
+  { label: "Khách hàng", href: "/customers" },
   { label: "Tài nguyên", href: "/blog" },
   { label: "Về Smartlog", href: "/about" },
   { label: "Liên hệ", href: "/contact" },
