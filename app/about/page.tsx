@@ -24,10 +24,10 @@ export default async function AboutPage() {
         <AboutHero />
         <VisionMission />
         <CoreValues />
-        <LeadershipTeam />
         <JourneyTimeline />
         <EcosystemMap />
         <KpiHighlight />
+        <LeadershipTeam />
         <NewsletterCta idPrefix="about.newsletter" />
         <Footer />
       </main>

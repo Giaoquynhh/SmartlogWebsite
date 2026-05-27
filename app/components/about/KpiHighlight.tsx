@@ -6,63 +6,84 @@ export type KpiHighlightProps = {
   idPrefix?: string;
 };
 
-/** 4 KPI cards + 2 banner đóng phần "tối ưu vận hành". */
 export default function KpiHighlight({ idPrefix = "about.kpi" }: KpiHighlightProps) {
   return (
     <section className="py-16 lg:py-24 bg-white">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="max-w-3xl mx-auto text-center mb-12 lg:mb-16">
-          <Editable
-            id={`${idPrefix}.title`}
-            kind="text"
-            as="h2"
-            className="text-3xl sm:text-4xl lg:text-[40px] font-bold text-[#333342] leading-tight block"
-          >
-            Mang lại sự tối ưu trong vận hành với…
-          </Editable>
+        <div className="rounded-2xl border border-[#E5E8F0] bg-white p-8 lg:p-14 shadow-[0_4px_24px_rgba(15,23,42,0.04)]">
+          <div className="text-center">
+            <Editable
+              id={`${idPrefix}.title`}
+              kind="text"
+              as="h2"
+              className="title-underline text-2xl sm:text-3xl lg:text-[36px] font-bold text-[#333342] leading-tight"
+            >
+              Mang lại sự tối ưu trong vận hành với…
+            </Editable>
+          </div>
+
+          <Reveal as="div" className="mt-10 lg:mt-14 grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-8 lg:gap-x-10">
+            {kpiHighlights.map((k, i) => (
+              <div key={i} className="kpi-pop text-center">
+                <div className="flex items-center justify-center gap-1.5">
+                  {k.arrow && (
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      aria-hidden
+                      className="kpi-arrow shrink-0"
+                    >
+                      <path
+                        d="M12 5v14m0 0l-6-6m6 6l6-6"
+                        stroke="#3543F6"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  )}
+                  <div
+                    className="text-3xl sm:text-4xl lg:text-[48px] font-extrabold leading-none whitespace-nowrap"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(180deg, #3543F6 0%, #242EAF 100%)",
+                      WebkitBackgroundClip: "text",
+                      backgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      color: "transparent",
+                    }}
+                  >
+                    <Editable
+                      id={`${idPrefix}.items.${i}.value`}
+                      kind="text"
+                      as="span"
+                    >
+                      {k.value}
+                    </Editable>
+                  </div>
+                </div>
+                <div className="mt-3">
+                  <Editable
+                    id={`${idPrefix}.items.${i}.label`}
+                    kind="text"
+                    as="div"
+                    className="text-sm lg:text-base text-[#6B7280] leading-snug"
+                  >
+                    {k.label}
+                  </Editable>
+                </div>
+              </div>
+            ))}
+          </Reveal>
         </div>
 
-        <Reveal as="div" stagger className="grid grid-cols-2 lg:grid-cols-4 gap-5">
-          {kpiHighlights.map((k, i) => (
-            <div
-              key={i}
-              className="rounded-2xl bg-white border border-[#EDEEF1] p-6 lg:p-8 text-center shadow-[0_4px_24px_rgba(15,23,42,0.04)] hover:shadow-[0_24px_48px_-20px_rgba(53,67,246,0.18)] hover:-translate-y-1 transition-all"
-            >
-              <div
-                className="text-4xl lg:text-5xl font-bold leading-none mb-3"
-                style={{
-                  backgroundImage: "linear-gradient(180deg, #3543F6 0%, #242EAF 100%)",
-                  WebkitBackgroundClip: "text",
-                  backgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  color: "transparent",
-                }}
-              >
-                <Editable
-                  id={`${idPrefix}.items.${i}.value`}
-                  kind="text"
-                  as="span"
-                >
-                  {k.value}
-                </Editable>
-              </div>
-              <Editable
-                id={`${idPrefix}.items.${i}.label`}
-                kind="text"
-                as="div"
-                className="text-sm lg:text-base text-[#333342] leading-snug"
-              >
-                {k.label}
-              </Editable>
-            </div>
-          ))}
-        </Reveal>
-
-        <Reveal as="div" stagger className="mt-12 grid md:grid-cols-2 gap-6">
+        <Reveal as="div" stagger className="mt-8 grid md:grid-cols-2 gap-6">
           {closingBanners.map((b, i) => (
             <div
               key={i}
-              className="rounded-2xl bg-[#F7F8F8] border border-[#EDEEF1] p-7 lg:p-9 shadow-[0_4px_24px_rgba(15,23,42,0.04)]"
+              className="rounded-2xl bg-white border border-[#E5E8F0] p-7 lg:p-9 shadow-[0_4px_24px_rgba(15,23,42,0.04)]"
             >
               <Editable
                 id={`${idPrefix}.banners.${i}.title`}
@@ -76,7 +97,7 @@ export default function KpiHighlight({ idPrefix = "about.kpi" }: KpiHighlightPro
                 id={`${idPrefix}.banners.${i}.description`}
                 kind="text"
                 as="p"
-                className="mt-3 text-sm lg:text-base text-[#25272C] leading-relaxed block"
+                className="mt-3 text-sm lg:text-base text-[#6B7280] leading-relaxed block"
               >
                 {b.description}
               </Editable>

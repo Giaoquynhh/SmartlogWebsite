@@ -426,6 +426,111 @@ html, body {
 .accordion-body { animation: accordion-down 0.35s ease-out both; }
 
 /* =========================================================
+   About page — Leader cards & quote enhancements
+   ========================================================= */
+.leader-card {
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.leader-card:hover {
+  transform: translateY(-8px);
+}
+.leader-card .leader-photo-wrap {
+  transition:
+    box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, box-shadow;
+}
+.leader-card:hover .leader-photo-wrap {
+  box-shadow: 0 30px 60px -25px rgba(53, 67, 246, 0.45);
+  transform: scale(1.02);
+}
+.leader-card .leader-photo {
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.leader-card:hover .leader-photo {
+  transform: scale(1.06);
+}
+.leader-card .leader-pill {
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.leader-card:hover .leader-pill {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -10px rgba(53, 67, 246, 0.55);
+}
+
+/* Shine sweep on photo wrap (one-shot on hover) */
+.leader-photo-wrap {
+  position: relative;
+}
+.leader-photo-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.4) 50%, transparent 70%);
+  transform: translateX(-120%);
+  pointer-events: none;
+  z-index: 2;
+}
+.leader-card:hover .leader-photo-wrap::after {
+  animation: shine-sweep 0.9s ease-out;
+}
+
+/* Quote card — soft floating glow */
+@keyframes quote-glow {
+  0%, 100% { box-shadow: 0 24px 60px -30px rgba(53, 67, 246, 0.25); }
+  50%      { box-shadow: 0 32px 80px -30px rgba(53, 67, 246, 0.4); }
+}
+.quote-card-glow { animation: quote-glow 5s ease-in-out infinite; }
+
+/* Animated underline that grows when section enters viewport */
+.title-underline {
+  position: relative;
+  display: inline-block;
+}
+.title-underline::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  height: 3px;
+  width: 0;
+  background: linear-gradient(90deg, #3543F6 0%, #9CBBFF 100%);
+  border-radius: 999px;
+  transform: translateX(-50%);
+  transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+}
+[data-reveal].is-visible .title-underline::after,
+.title-underline.is-visible::after {
+  width: 64px;
+}
+
+/* KPI value count-up subtle bounce */
+@keyframes kpi-pop {
+  0%   { opacity: 0; transform: translateY(12px) scale(0.92); }
+  60%  { opacity: 1; transform: translateY(-2px) scale(1.04); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+[data-reveal].is-visible .kpi-pop {
+  animation: kpi-pop 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+[data-reveal].is-visible .kpi-pop:nth-child(2) { animation-delay: 0.1s; }
+[data-reveal].is-visible .kpi-pop:nth-child(3) { animation-delay: 0.2s; }
+[data-reveal].is-visible .kpi-pop:nth-child(4) { animation-delay: 0.3s; }
+
+/* Bouncing arrow next to KPI values */
+@keyframes arrow-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(3px); }
+}
+.kpi-arrow { animation: arrow-bob 1.8s ease-in-out infinite; }
+
+/* =========================================================
    Respect reduced motion
    ========================================================= */
 @media (prefers-reduced-motion: reduce) {

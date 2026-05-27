@@ -80,6 +80,7 @@ export type LeaderCard = {
   role: string;
   bio: string;
   accent?: string;
+  photo?: string;
 };
 
 export const leaders: LeaderCard[] = [
@@ -87,56 +88,67 @@ export const leaders: LeaderCard[] = [
     name: "Mr. Kurt Binh",
     role: "Founder & CEO",
     accent: "#FF4C61",
+    photo: "/images/about/leaders/kurt-binh.png",
     bio: "Thạc sĩ ngành Quản Lý Chuỗi Cung Ứng (ĐH MIT, Hoa Kỳ), 20 năm kinh nghiệm quản lý, vận hành chuỗi cung ứng, logistics, dẫn dắt các dự án lớn tư vấn logistics.",
+  },
+  {
+    name: "Mr. D K Rai",
+    role: "VP - Global Market Expansion",
+    photo: "/images/about/leaders/dk-rai.png",
+    bio: "Sở hữu nền tảng đa ngành về Kỹ thuật, MBA và Luật, được đào tạo lãnh đạo tại CEDEP. Hơn 20 năm kinh nghiệm phát triển kinh doanh toàn cầu, mở rộng thị trường, xây dựng quan hệ đối tác, hoạch định chiến lược xuyên biên giới.",
   },
   {
     name: "Ms. Canary Yen",
     role: "Deputy CEO",
+    photo: "/images/about/leaders/canary-yen.png",
     bio: "Cử nhân Đại học Hàng hải, hơn 22 năm kinh nghiệm trong lĩnh vực logistics, phát triển kinh doanh chuỗi cung ứng và giải pháp tại Gemadept, CJ Gemadept Logistics, Lazada Logistics.",
   },
   {
     name: "Mr. Tuan Tran",
     role: "CTO",
+    photo: "/images/about/leaders/tuan-tran.png",
     bio: "Thạc sĩ ngành Quản Lý Chuỗi Cung Ứng (ĐH MIT, Hoa Kỳ), 20 năm kinh nghiệm quản lý, vận hành chuỗi cung ứng, logistics, dẫn dắt các dự án lớn tư vấn logistics.",
   },
   {
     name: "Mr. Dung Tran",
     role: "Deputy CTO",
+    photo: "/images/about/leaders/dung-tran.png",
     bio: "Cử nhân Software Engineering theo chương trình đào tạo của Carnegie Mellon University (CMU, Mỹ). Hơn 8 năm phát triển hệ thống phục vụ lĩnh vực Logistics.",
   },
   {
     name: "Mr. Thanh Lai",
     role: "COO",
+    photo: "/images/about/leaders/thanh-lai.png",
     bio: "Thạc sĩ ngành Quản Lý Chuỗi Cung Ứng (ĐH MIT, Hoa Kỳ), 20 năm kinh nghiệm quản lý, vận hành chuỗi cung ứng, logistics, dẫn dắt các dự án lớn tư vấn logistics.",
   },
   {
     name: "Ms. Kieu Huynh",
     role: "CFO",
+    photo: "/images/about/leaders/kieu-huynh.png",
     bio: "Hơn 20 năm kinh nghiệm giữ các vị trí giám đốc tài chính, trưởng phòng tài chính kế toán ở các tập đoàn hàng đầu Việt Nam.",
   },
   {
     name: "Mr. Hanh Do",
     role: "Chief AI Officer",
+    photo: "/images/about/leaders/hanh-do.png",
     bio: "Tiến sĩ Toán học, UC Berkeley, USA. Nghiên cứu trong lĩnh vực Mathematical Foundations ứng dụng AI, Machine Learning and Optimization cho Logistics.",
   },
   {
     name: "Ms. Giang Le",
     role: "Head of Business Development",
+    photo: "/images/about/leaders/giang-le.png",
     bio: "Thạc sĩ chuyên ngành Business Analytics and Management Science. Hơn 7 năm kinh nghiệm quản lý kho hàng, ecommerce và xây dựng giải pháp.",
   },
   {
     name: "Ms. Anh Le",
     role: "Head of Product Development",
+    photo: "/images/about/leaders/anh-le.png",
     bio: "Hơn 7 năm kinh nghiệm thiết kế giải pháp và triển khai các dự án chuyển đổi số Logistics cho nhiều doanh nghiệp trong và ngoài nước.",
-  },
-  {
-    name: "Mr. D K Rai",
-    role: "VP - Global Market Expansion",
-    bio: "Sở hữu nền tảng đa ngành về Kỹ thuật, MBA và Luật, được đào tạo lãnh đạo tại CEDEP. Hơn 20 năm kinh nghiệm phát triển kinh doanh toàn cầu, mở rộng thị trường, xây dựng quan hệ đối tác, hoạch định chiến lược xuyên biên giới.",
   },
   {
     name: "Mr. Dat Pham",
     role: "Head of Implementation",
+    photo: "/images/about/leaders/dat-pham.png",
     bio: "Chuyên gia tối ưu quy trình vận hành kho, vận tải cho doanh nghiệp lớn.",
   },
 ];
@@ -281,12 +293,13 @@ export const ecosystemStakeholders = [
 export type KpiHighlight = {
   value: string;
   label: string;
+  arrow?: boolean;
 };
 
 export const kpiHighlights: KpiHighlight[] = [
-  { value: "15%", label: "Chi phí vận tải" },
-  { value: "10%", label: "Chi phí quản lý" },
-  { value: "10-15%", label: "Chi phí vận hành kho" },
+  { value: "15%", label: "Chi phí vận tải", arrow: true },
+  { value: "10%", label: "Chi phí quản lý", arrow: true },
+  { value: "10-15%", label: "Chi phí vận hành kho", arrow: true },
   { value: "99,99%", label: "Chính xác tồn kho" },
 ];
 
