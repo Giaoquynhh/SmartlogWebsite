@@ -71,9 +71,9 @@ export default async function ContactPage() {
       <main className="relative">
         <Header />
 
-        {/* Hero — short navy band with single title */}
+        {/* Hero — tall navy band matching blog hero height */}
         <section
-          className="relative overflow-hidden text-white pt-44 pb-20 lg:pt-52 lg:pb-28"
+          className="relative overflow-hidden text-white min-h-[520px] lg:min-h-[680px] flex items-center pt-32 pb-20 lg:pt-40 lg:pb-28"
           style={{ backgroundColor: "#161A50" }}
         >
           <div
