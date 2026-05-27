@@ -294,6 +294,71 @@ html, body {
 .pulse-ring { animation: pulse-ring 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
 
 /* =========================================================
+   Ecosystem pyramid — drop-in animation cho mỗi tier
+   Tier xuất hiện từ trên xuống, fade + scale từ tâm
+   ========================================================= */
+@keyframes pyramid-tier-drop {
+  0%   { opacity: 0; transform: translateY(-18px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.pyramid-tier {
+  opacity: 0;
+  transform: translateY(-18px) scale(0.95);
+  /* Khi container Reveal mất is-visible (ra khỏi viewport), tier reset về trạng thái ẩn */
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+/* Khi Reveal visible, replay animation mỗi lần class is-visible được set lại */
+[data-reveal].is-visible .pyramid-tier {
+  animation: pyramid-tier-drop 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.pyramid-tier-1 { animation-delay: 0.05s; }
+.pyramid-tier-2 { animation-delay: 0.20s; }
+.pyramid-tier-3 { animation-delay: 0.35s; }
+.pyramid-tier-4 { animation-delay: 0.50s; }
+.pyramid-tier-5 { animation-delay: 0.65s; }
+.pyramid-tier-6 { animation-delay: 0.80s; }
+
+/* Module icon — hover: scale up + glow */
+.eco-module {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), filter 0.3s;
+  cursor: default;
+}
+.eco-module:hover {
+  transform: translateY(-2px) scale(1.06);
+  filter: drop-shadow(0 8px 18px rgba(53, 67, 246, 0.35));
+}
+
+/* L4 pill — glow pulse liên tục */
+@keyframes pill-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(53, 67, 246, 0.45),
+                0 4px 14px rgba(53, 67, 246, 0.18);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(53, 67, 246, 0),
+                0 8px 24px rgba(53, 67, 246, 0.35);
+  }
+}
+.eco-pill-glow { animation: pill-glow 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+/* L6 integration chip — hover lift */
+.eco-chip {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+.eco-chip:hover {
+  transform: translateY(-3px);
+  background-color: #fff !important;
+  box-shadow: 0 10px 24px rgba(53, 67, 246, 0.22);
+}
+
+/* D-mark trên đỉnh — floating nhẹ */
+@keyframes d-mark-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+.eco-d-mark { animation: d-mark-float 3.5s ease-in-out infinite; transform-origin: center; }
+
+/* =========================================================
    Slow rotation (SWM dashed circle)
    ========================================================= */
 @keyframes spin-slow { to { transform: rotate(360deg); } }
