@@ -104,6 +104,14 @@ export default function EcosystemMap({ idPrefix = "about.ecosystem" }: Ecosystem
             className="relative mx-auto w-full"
             style={{ aspectRatio: `${FRAME_W} / ${FRAME_H}` }}
           >
+            {/* Bottom blue strip — sits just under the pyramid base */}
+            <Abs x={56} y={1388} w={1440} h={12} zIndex={0}>
+              <div
+                className="w-full h-full"
+                style={{ backgroundColor: "#6691FF" }}
+              />
+            </Abs>
+
             {/* Pyramid SVG (#ECF3FF) — frame 1440×1389 offset (56, 0) trong group */}
             <Abs x={PYRAMID_OFFSET_X} y={PYRAMID_OFFSET_Y} w={PYRAMID_W} h={PYRAMID_H} zIndex={0}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -150,6 +158,16 @@ export default function EcosystemMap({ idPrefix = "about.ecosystem" }: Ecosystem
               );
             })}
 
+            {/* L6 band (chips API/EDI/IoT/ERP) — hình thang nằm TRONG pyramid, bám cạnh nghiêng.
+                Tại y=1075→1230. Cạnh pyramid frame 1440×1389 offset (56,0) trong group 1553:
+                - y=1075: pyramid_left = 56 + 720*1075/1389 = 56 + 558 = 614; pyramid_right = 1492 - 558 = 934
+                  → trong group %: 614/1553 = 39.5%, 934/1553 = 60.1%
+                  → KHÔNG ĐÚNG vì pyramid đỉnh ở x=720+56=776, đáy rộng hết → tại y=1075 cạnh đã rộng nhiều
+                Sửa lại: pyramid đỉnh (776, 0), đáy trái (56, 1389), đáy phải (1496, 1389).
+                Tại y=1075: x_left = 776 - 720*1075/1389 = 776 - 557 = 219; x_right = 776 + 557 = 1333
+                  → 219/1553 = 14.1%, 1333/1553 = 85.8%
+                Tại y=1230: x_left = 776 - 720*1230/1389 = 776 - 638 = 138; x_right = 776 + 638 = 1414
+                  → 138/1553 = 8.9%, 1414/1553 = 91.1% */}
             {/* Cloud base wave (L6 tier) — ở (0.3, 1075) trong group, w=1552.7 h=231.77 */}
             <Abs x={0.3} y={1075} w={1552.7} h={231.77} zIndex={1}>
               <div className="pyramid-tier pyramid-tier-6 w-full h-full">
@@ -164,20 +182,20 @@ export default function EcosystemMap({ idPrefix = "about.ecosystem" }: Ecosystem
               </div>
             </Abs>
 
-            {/* L1 — SCT text + icon. Group 3223:5768 ở (547.17 + 87.83, 152.11 + 33.89) = (635, 186), w=281 h=80 */}
-            <Abs x={547.17 + 87.83} y={152.11 + 33.89} w={281} h={80} zIndex={2}>
+            {/* L1 — SCT text + icon. Pushed deeper into top triangle */}
+            <Abs x={640} y={195} w={280} h={60} zIndex={2}>
               <div className="flex items-center gap-3">
                 <ModuleIcon icon="sct" />
                 <ModuleText code="SCT" name="Smartlog Supply Chain Planning" />
               </div>
             </Abs>
-            {/* L1 — caption "Trung tâm kiểm soát chuỗi cung ứng" — Figma layout_RY077W ở (0, 68) trong group 3223:5768 */}
-            <Abs x={547.17 + 87.83} y={152.11 + 33.89 + 68} w={281} h={26} zIndex={2}>
+            {/* L1 — caption "Trung tâm kiểm soát chuỗi cung ứng" */}
+            <Abs x={640} y={255} w={280} h={30} zIndex={2}>
               <Editable
                 id={`${idPrefix}.sct.caption`}
                 kind="text"
                 as="p"
-                className="text-[16px] leading-[1.6] font-bold text-black text-center block"
+                className="text-[12px] leading-[1.4] font-bold text-black text-center block"
               >
                 Trung tâm kiểm soát chuỗi cung ứng
               </Editable>
@@ -304,9 +322,23 @@ export default function EcosystemMap({ idPrefix = "about.ecosystem" }: Ecosystem
               </div>
             </Abs>
 
-            {/* Stakeholders. Frame 1831 ở (349, 1335), gap 113px */}
-            <Abs x={349} y={1335} w={FRAME_W - 2 * 349} h={26} zIndex={2}>
-              <div className="flex items-center" style={{ gap: 113 }}>
+            {/* L6 tier band — background for stakeholders */}
+            <Abs x={130} y={1322} w={1293} h={50} zIndex={1}>
+              <div className="pyramid-tier pyramid-tier-6 w-full h-full">
+                <div
+                  className="w-full h-full"
+                  style={{
+                    backgroundColor: "#ECF3FF",
+                    opacity: 0.65,
+                    clipPath: "polygon(5% 0, 95% 0, 100% 100%, 0% 100%)",
+                  }}
+                />
+              </div>
+            </Abs>
+
+            {/* Stakeholders. Frame 1831 ở (349, 1332) */}
+            <Abs x={349} y={1332} w={FRAME_W - 2 * 349} h={26} zIndex={2}>
+              <div className="flex items-center justify-between w-full h-full">
                 {ecosystemStakeholders.map((s, i) => (
                   <span key={s} style={{ letterSpacing: "0.05em" }}>
                     <Editable
