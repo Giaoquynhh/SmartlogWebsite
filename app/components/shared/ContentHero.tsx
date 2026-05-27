@@ -65,6 +65,19 @@ export default function ContentHero({
             className="absolute left-0 opacity-60"
             style={{ bottom: 0, width: "50%", height: "auto" }}
           />
+          {/* Group 9: đốm nhỏ vàng rải — đồng bộ /about hero */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/about/hero/hero-decor-group-9.svg"
+            alt=""
+            className="absolute opacity-80"
+            style={{
+              left: "20%",
+              top: "25%",
+              width: "16%",
+              height: "auto",
+            }}
+          />
           {/* Chữ "f" watermark */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
