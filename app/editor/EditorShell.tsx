@@ -1,7 +1,6 @@
 import { headers } from "next/headers";
 import { readDrafts } from "./store.server";
 import { EditorProvider } from "./EditorContext";
-import EditorToolbar from "./EditorToolbar";
 
 /**
  * Server component that:
@@ -23,7 +22,6 @@ export default async function EditorShell({
   return (
     <EditorProvider initialFile={file} pathname={pathname}>
       {children}
-      <EditorToolbar />
     </EditorProvider>
   );
 }

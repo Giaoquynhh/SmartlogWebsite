@@ -113,7 +113,7 @@ export default async function CaseStudyPage() {
               <div className="mt-8 flex justify-center">
                 <a
                   href="#"
-                  className="group inline-flex items-center gap-2 rounded-xl border border-[#3543F6] text-[#3543F6] hover:bg-[#3543F6] hover:text-white transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#3543F6]/20 px-6 py-3 text-sm font-bold"
+                  className="cta-shimmer group inline-flex items-center gap-2 rounded-xl border border-[#3543F6] text-[#3543F6] hover:bg-[#3543F6] hover:text-white transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#3543F6]/20 px-6 py-3 text-sm font-bold"
                 >
                   <Editable
                     id={`caseStudy.industry.${group.key}.cta`}

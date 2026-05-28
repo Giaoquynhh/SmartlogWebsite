@@ -95,7 +95,7 @@ export default function ArticleCard({ idPrefix, index, card, size = "default" }:
             {card.tags.map((t, j) => (
               <span
                 key={j}
-                className="rounded-full bg-[#F4F6FB] px-3 py-1 text-[11px] font-medium text-[#615F78]"
+                className="rounded-full bg-[#F4F6FB] px-3 py-1 text-[11px] font-medium text-[#615F78] hover:bg-[#ECF3FF] hover:text-[#3543F6] transition-colors cursor-default"
               >
                 <Editable id={`${cid}.tags.${j}`} kind="text" as="span">
                   {t}

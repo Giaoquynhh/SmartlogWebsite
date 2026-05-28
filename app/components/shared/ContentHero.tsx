@@ -116,7 +116,7 @@ export default function ContentHero({
             id={`${idPrefix}.title`}
             kind="text"
             as="h1"
-            className="anim-fade-up delay-100 text-5xl sm:text-6xl lg:text-[72px] leading-[1.05] font-bold tracking-tight text-[#ECF3FF] block"
+            className="anim-fade-up delay-100 hero-gradient-text text-5xl sm:text-6xl lg:text-[72px] leading-[1.05] font-bold tracking-tight block"
           >
             {title}
           </Editable>
