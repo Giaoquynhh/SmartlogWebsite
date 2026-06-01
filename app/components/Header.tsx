@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type NavItem = {
   label: string;
@@ -29,17 +29,37 @@ const navItems: NavItem[] = [
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="absolute top-0 left-0 right-0 z-50 text-white">
-      <div className="mx-auto w-full max-w-[1720px] px-10 pt-7 pb-4 flex flex-col gap-5">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 text-white transition-all duration-300 ${
+        scrolled
+          ? "bg-[#0a1a3f]/90 backdrop-blur-md shadow-lg border-b border-white/10"
+          : "bg-transparent"
+      }`}
+    >
+      <div
+        className={`mx-auto w-full max-w-[1720px] px-10 flex flex-col transition-all duration-300 ${
+          scrolled ? "pt-3 pb-2 gap-1" : "pt-7 pb-4 gap-5"
+        }`}
+      >
         {/* Hàng 1: logo + top utilities */}
         <div className="flex items-center justify-between gap-6">
           <Link href="/" className="flex items-center flex-shrink-0">
             <img
               src="/images/shared/logo/smartlog-figma.svg"
               alt="Smartlog"
-              className="h-10 sm:h-12 lg:h-14 w-auto"
+              className={`w-auto transition-all duration-300 ${
+                scrolled ? "h-8 sm:h-9 lg:h-10" : "h-10 sm:h-12 lg:h-14"
+              }`}
             />
           </Link>
 
@@ -49,7 +69,9 @@ export default function Header() {
             <span className="font-medium">VN / ENG</span>
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 rounded-full bg-white hover:bg-gray-100 transition-colors px-5 py-2.5 text-[15px] font-semibold text-[#161A50] shadow-md"
+              className={`inline-flex items-center gap-2 rounded-full bg-white hover:bg-gray-100 transition-all font-semibold text-[#242EAF] shadow-md ${
+                scrolled ? "px-4 py-2 text-[14px]" : "px-5 py-2.5 text-[15px]"
+              }`}
             >
               Free demo
               <span aria-hidden>→</span>
@@ -57,8 +79,12 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Hàng 2: menu items căn trái dưới logo */}
-        <nav className="hidden lg:flex items-center gap-9 text-[16px]">
+        {/* Hàng 2: menu items thụt vào bên phải, gần logo hơn khi scroll */}
+        <nav
+          className={`hidden lg:flex items-center gap-9 text-[16px] transition-all duration-300 ${
+            scrolled ? "pl-16" : "pl-24"
+          }`}
+        >
           {navItems.map((item) => {
             if (item.children) {
               return (
@@ -111,7 +137,7 @@ export default function Header() {
       <div className="absolute top-6 right-6 flex lg:hidden items-center gap-3">
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 rounded-full bg-white text-[#1e3a8a] px-4 py-2 text-xs font-semibold shadow-md"
+            className="inline-flex items-center gap-2 rounded-full bg-white text-[#242EAF] px-4 py-2 text-xs font-semibold shadow-md"
           >
             Free demo
           </a>

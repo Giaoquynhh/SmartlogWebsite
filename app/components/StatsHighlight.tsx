@@ -48,10 +48,10 @@ export default function StatsHighlight() {
               key={s.label}
               className="card-lift rounded-2xl bg-white border border-gray-200/80 shadow-[0_2px_12px_rgba(15,23,42,0.04)] p-5 text-center"
             >
-              <Editable id={`home.statsHighlight.more.${i}.prefix`} kind="text" as="div" className="text-xs font-semibold text-[#1e3a8a] tracking-[0.2em]">
+              <Editable id={`home.statsHighlight.more.${i}.prefix`} kind="text" as="div" className="text-xs font-semibold text-[#242EAF] tracking-[0.2em]">
                 {s.prefix}
               </Editable>
-              <Editable id={`home.statsHighlight.more.${i}.value`} kind="text" as="div" className="mt-2 text-3xl lg:text-4xl font-bold text-[#1e3a8a]">
+              <Editable id={`home.statsHighlight.more.${i}.value`} kind="text" as="div" className="mt-2 text-3xl lg:text-4xl font-bold text-[#242EAF]">
                 {s.value}
               </Editable>
               <Editable id={`home.statsHighlight.more.${i}.label`} kind="text" as="div" className="mt-2 text-xs sm:text-sm text-gray-700 leading-snug">
@@ -74,10 +74,10 @@ export default function StatsHighlight() {
                 key={s.value}
                 className="card-lift rounded-2xl bg-white border border-gray-200/80 shadow-[0_2px_12px_rgba(15,23,42,0.04)] p-5 text-center"
               >
-                <Editable id={`home.statsHighlight.savings.${i}.prefix`} kind="text" as="div" className="text-xs font-semibold text-[#1e3a8a] tracking-[0.2em]">
+                <Editable id={`home.statsHighlight.savings.${i}.prefix`} kind="text" as="div" className="text-xs font-semibold text-[#242EAF] tracking-[0.2em]">
                   {s.prefix}
                 </Editable>
-                <Editable id={`home.statsHighlight.savings.${i}.value`} kind="text" as="div" className="mt-1.5 text-2xl lg:text-3xl font-bold text-[#1e3a8a]">
+                <Editable id={`home.statsHighlight.savings.${i}.value`} kind="text" as="div" className="mt-1.5 text-2xl lg:text-3xl font-bold text-[#242EAF]">
                   {s.value}
                 </Editable>
                 <Editable id={`home.statsHighlight.savings.${i}.label`} kind="text" as="div" className="mt-2 text-xs text-gray-700 leading-snug">

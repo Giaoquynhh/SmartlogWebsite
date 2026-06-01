@@ -1,12 +1,13 @@
 import Image from "next/image";
 import { home } from "../assets";
 import Editable from "../editor/Editable";
+import CountUp from "./CountUp";
 
-const stats = [
-  { value: "2015", label: "Khởi đầu hành trình" },
-  { value: "100+", label: "Khách hàng doanh nghiệp" },
-  { value: "50+", label: "Đối tác chiến lược" },
-  { value: "20+", label: "Ngành hàng" },
+const stats: { value: string; label: string; end: number; suffix?: string }[] = [
+  { value: "2015", label: "Khởi đầu hành trình", end: 2015 },
+  { value: "200+", label: "Khách hàng doanh nghiệp", end: 200, suffix: "+" },
+  { value: "50+", label: "Đối tác chiến lược", end: 50, suffix: "+" },
+  { value: "20+", label: "Ngành hàng", end: 20, suffix: "+" },
 ];
 
 export default function Hero() {
@@ -19,6 +20,14 @@ export default function Hero() {
         backgroundColor: "#0f1f5c",
       }}
     >
+      {/* Lớp mờ phía trên để phân biệt thanh tab bar và nội dung banner */}
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-44 lg:h-52 z-10"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(10,26,63,0.75) 0%, rgba(10,26,63,0.45) 55%, rgba(10,26,63,0) 100%)",
+        }}
+      />
       <div
         className="pointer-events-none absolute hidden md:block overflow-hidden anim-fade-in delay-200"
         style={{
@@ -51,7 +60,7 @@ export default function Hero() {
           <div className="mt-8 anim-fade-up delay-300">
             <a
               href="/about"
-              className="cta-shimmer inline-flex items-center gap-2 rounded-full bg-[#1e3a8a] hover:bg-[#1e40af] transition-all hover:-translate-y-0.5 px-7 py-3.5 text-base font-semibold shadow-lg shadow-[#0a1a3f]/40"
+              className="cta-shimmer inline-flex items-center gap-2 rounded-full bg-[#3543F6] hover:bg-[#242EAF] transition-all hover:-translate-y-0.5 px-7 py-3.5 text-base font-semibold shadow-lg shadow-[#0a1a3f]/40"
             >
               <Editable id="home.hero.cta" kind="text" as="span">
                 Tìm hiểu thêm
@@ -77,9 +86,7 @@ export default function Hero() {
                     color: "transparent",
                   }}
                 >
-                  <Editable id={`home.hero.stats.${i}.value`} kind="text" as="span">
-                    {s.value}
-                  </Editable>
+                  <CountUp end={s.end} suffix={s.suffix} />
                 </div>
                 <Editable id={`home.hero.stats.${i}.label`} kind="text" as="div" className="mt-1 text-sm text-white/80">
                   {s.label}
